@@ -236,7 +236,7 @@ public class Test implements ClientService {
         return chain;
     }
 
-    private Chain newChainAndInitialize(User admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception {
+    public Chain newChainAndInitialize(User admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception {
         return newChainNotInitialize(admin, chainName, chainConfiguration, orders, peers, eventHubs).initialize();
     }
 
