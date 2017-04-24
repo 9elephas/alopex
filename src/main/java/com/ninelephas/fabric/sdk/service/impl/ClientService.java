@@ -13,7 +13,7 @@ public interface ClientService {
      * @return
      * @throws Exception
      */
-    boolean regist(UserEntity user)throws Exception;
+    public boolean regist(UserEntity user)throws Exception;
 
 
     /**
