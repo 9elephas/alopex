@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Created by zouwei on 2017/4/21.
  */
-public class Test implements ClientService {
+public class ClientServiceImpl implements ClientService {
 
     private HFClient client = ClientUtil.getClient();
 
@@ -281,7 +281,7 @@ public class Test implements ClientService {
 
 
     public static void main(String[] args) throws Exception {
-        Test test = new Test();
+        ClientService test = new ClientServiceImpl();
         HFClient client = test.client;
         //创建用户
         String mspID = "Org1MSP";
