@@ -18,6 +18,7 @@ public class ClientServiceImpl implements ClientService {
 
     private HFClient client = ClientUtil.getClient();
 
+
     private static HFCAClient ca;
 
     static {
