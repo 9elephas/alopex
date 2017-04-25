@@ -1,6 +1,9 @@
 package com.ninelephas.fabric.sdk.service.impl;
 
 import com.ninelephas.fabric.sdk.entity.UserEntity;
+import org.hyperledger.fabric.sdk.*;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Created by zouwei on 2017/4/21.
@@ -59,12 +62,11 @@ public interface ClientService {
      * @return
      * @throws Exception
      */
-    public Chain newChainAndInitialize(User admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception；
+    public Chain newChainAndInitialize(User admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception;
 
 
     /**
      * install
-     * @param client
      * @param chain
      * @param chainCodeID
      * @param chainCodeSourceLocation

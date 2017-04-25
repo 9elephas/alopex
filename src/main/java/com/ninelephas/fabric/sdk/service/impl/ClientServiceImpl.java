@@ -282,7 +282,7 @@ public class ClientServiceImpl implements ClientService {
 
 
     public static void main(String[] args) throws Exception {
-        ClientService test = new ClientServiceImpl();
+        ClientServiceImpl test = new ClientServiceImpl();
         HFClient client = test.client;
         //创建用户
         String mspID = "Org1MSP";
@@ -329,7 +329,7 @@ public class ClientServiceImpl implements ClientService {
         }
 
 
-        Test test1 = new Test();
+        ClientServiceImpl test1 = new ClientServiceImpl();
 
         HFClient client1 = test1.client;
 
