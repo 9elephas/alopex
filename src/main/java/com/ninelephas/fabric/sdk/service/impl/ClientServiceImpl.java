@@ -16,18 +16,29 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ClientServiceImpl implements ClientService {
 
-    private HFClient client = ClientUtil.getClient();
+    private HFClient client;
 
+    private HFCAClient ca;
 
-    private static HFCAClient ca;
-
-    static {
+    public ClientServiceImpl(String caUrl) {
+        super();
         try {
-            ca = new HFCAClient("http://192.168.2.13:7054", null);
+            client = ClientUtil.getClient();
+            ca = new HFCAClient(caUrl, null);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
+
+    //private static HFCAClient ca;
+
+//    static {
+//        try {
+//            ca = new HFCAClient("http://192.168.2.13:7054", null);
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * 用户注册
@@ -41,15 +52,15 @@ public class ClientServiceImpl implements ClientService {
         client.setMemberServices(ca);
         if (!user.isAdmin()) {
             UserEntity admin = user.getAdmin();
-            enroll(client, ca, admin);
+            enroll(admin);
             if (!user.isRegistered()) {
                 user.setSecret(ca.register(new RegistrationRequest(user.getName(), user.getAffiliation()), admin));
             }
         }
-        return enroll(client, ca, user);
+        return enroll(user);
     }
 
-    private boolean enroll(HFClient client, HFCAClient ca, UserEntity user) throws Exception {
+    private boolean enroll(UserEntity user) throws Exception {
         if (!user.isEnrolled()) {
             user.setEnrollment(ca.enroll(user.getName(), user.getSecret()));
         }
@@ -218,7 +229,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
-    private Chain newChainNotInitialize(User admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception {
+    private Chain newChainNotInitialize(UserEntity admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception {
+        if (admin.getEnrollment() == null) {
+            regist(admin);
+        }
         Chain chain = null;
         client.setUserContext(admin);
         Iterator<Orderer> iterator = orders.iterator();
@@ -237,7 +251,7 @@ public class ClientServiceImpl implements ClientService {
         return chain;
     }
 
-    public Chain newChainAndInitialize(User admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception {
+    public Chain newChainAndInitialize(UserEntity admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception {
         return newChainNotInitialize(admin, chainName, chainConfiguration, orders, peers, eventHubs).initialize();
     }
 
@@ -281,70 +295,70 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        ClientServiceImpl test = new ClientServiceImpl();
-        HFClient client = test.client;
-        //创建用户
-        String mspID = "Org1MSP";
-        UserEntity admin = new UserEntity("admin", mspID);
-        admin.setSecret("adminpw");
-        UserEntity user = new UserEntity("user1", mspID);
-        user.setAffiliation("org1.department1");
-        user.setAdmin(admin);
-
-        //clientService.enroll(client,ca,admin);
-        //注册用户
-        test.regist(user);
-
-        ChainConfiguration chainConfiguration = new ChainConfiguration(new File("src/test/fixture/sdkintegration/e2e-2Orgs/channel/foo.tx"));
-        Set<Peer> peers = new HashSet<>(2);
-
-        peers.add(test.newPeer("peer0", "grpc://192.168.2.13:7051", null));
-        //peers.add(test.newPeer("peer1", "grpc://192.168.2.13:7056", null));
-
-        Set<Orderer> orders = new HashSet<>(1);
-        orders.add(test.newOrder("orderer0", "grpc://192.168.2.13:7050", null));
-
-        Set<EventHub> eventHubs = new HashSet<>(1);
-        eventHubs.add(test.newEventHub("eventhub0", "grpc://192.168.2.13:7053", null));
-
-        Chain chain = test.newChainAndInitialize(user.getAdmin(), "foo", chainConfiguration, orders, peers, eventHubs);
-
-        chain.joinPeer(test.newPeer("peer1", "grpc://192.168.2.13:7056", null));
-
-        ChainCodeID chainCodeID = ChainCodeID.newBuilder().setName("example_cc_go").setPath("github.com/example_cc").setVersion("1").build();
-
-        test.install(user, chain, chainCodeID, "src/test/fixture/sdkintegration/gocc/sample1", "1", TransactionRequest.Type.GO_LANG);
-
-        test.instantiate(user, chain, chainCodeID, new String[]{"a", "500", "b", "400"}, "src/test/fixture/sdkintegration/chaincodeendorsementpolicy.yaml");
-
-        Collection<ProposalResponse> res = test.query(user, chain, chainCodeID, new String[]{"query", "b"});
-
-        for (ProposalResponse r : res) {
-            ChainCodeResponse.Status status = r.getStatus();
-            if (status.equals(ChainCodeResponse.Status.SUCCESS)) {
-                String payload = r.getProposalResponse().getResponse().getPayload().toStringUtf8();
-                System.out.println("Successful install proposal response Txid: " + r.getTransactionID() + " from peer " + r.getPeer().getName());
-            }
-        }
-
-
-        ClientServiceImpl test1 = new ClientServiceImpl();
-
-        HFClient client1 = test1.client;
-
-        Chain chain1 = client1.getChain("foo");
-
-        chain.isInitialized();
-
-        res = test1.query(user, chain1, chainCodeID, new String[]{"query", "a"});
-
-        for (ProposalResponse r : res) {
-            ChainCodeResponse.Status status = r.getStatus();
-            if (status.equals(ChainCodeResponse.Status.SUCCESS)) {
-                String payload = r.getProposalResponse().getResponse().getPayload().toStringUtf8();
-                System.out.println("Successful install proposal response Txid: " + r.getTransactionID() + " from peer " + r.getPeer().getName());
-            }
-        }
-    }
+//    public static void main(String[] args) throws Exception {
+//        ClientServiceImpl test = new ClientServiceImpl();
+//        HFClient client = test.client;
+//        //创建用户
+//        String mspID = "Org1MSP";
+//        UserEntity admin = new UserEntity("admin", mspID);
+//        admin.setSecret("adminpw");
+//        UserEntity user = new UserEntity("user1", mspID);
+//        user.setAffiliation("org1.department1");
+//        user.setAdmin(admin);
+//
+//        //clientService.enroll(client,ca,admin);
+//        //注册用户
+//        test.regist(user);
+//
+//        ChainConfiguration chainConfiguration = new ChainConfiguration(new File("src/test/fixture/sdkintegration/e2e-2Orgs/channel/foo.tx"));
+//        Set<Peer> peers = new HashSet<>(2);
+//
+//        peers.add(test.newPeer("peer0", "grpc://192.168.2.13:7051", null));
+//        //peers.add(test.newPeer("peer1", "grpc://192.168.2.13:7056", null));
+//
+//        Set<Orderer> orders = new HashSet<>(1);
+//        orders.add(test.newOrder("orderer0", "grpc://192.168.2.13:7050", null));
+//
+//        Set<EventHub> eventHubs = new HashSet<>(1);
+//        eventHubs.add(test.newEventHub("eventhub0", "grpc://192.168.2.13:7053", null));
+//
+//        Chain chain = test.newChainAndInitialize(user.getAdmin(), "foo", chainConfiguration, orders, peers, eventHubs);
+//
+//        chain.joinPeer(test.newPeer("peer1", "grpc://192.168.2.13:7056", null));
+//
+//        ChainCodeID chainCodeID = ChainCodeID.newBuilder().setName("example_cc_go").setPath("github.com/example_cc").setVersion("1").build();
+//
+//        test.install(user, chain, chainCodeID, "src/test/fixture/sdkintegration/gocc/sample1", "1", TransactionRequest.Type.GO_LANG);
+//
+//        test.instantiate(user, chain, chainCodeID, new String[]{"a", "500", "b", "400"}, "src/test/fixture/sdkintegration/chaincodeendorsementpolicy.yaml");
+//
+//        Collection<ProposalResponse> res = test.query(user, chain, chainCodeID, new String[]{"query", "b"});
+//
+//        for (ProposalResponse r : res) {
+//            ChainCodeResponse.Status status = r.getStatus();
+//            if (status.equals(ChainCodeResponse.Status.SUCCESS)) {
+//                String payload = r.getProposalResponse().getResponse().getPayload().toStringUtf8();
+//                System.out.println("Successful install proposal response Txid: " + r.getTransactionID() + " from peer " + r.getPeer().getName());
+//            }
+//        }
+//
+//
+//        ClientServiceImpl test1 = new ClientServiceImpl();
+//
+//        HFClient client1 = test1.client;
+//
+//        Chain chain1 = client1.getChain("foo");
+//
+//        chain.isInitialized();
+//
+//        res = test1.query(user, chain1, chainCodeID, new String[]{"query", "a"});
+//
+//        for (ProposalResponse r : res) {
+//            ChainCodeResponse.Status status = r.getStatus();
+//            if (status.equals(ChainCodeResponse.Status.SUCCESS)) {
+//                String payload = r.getProposalResponse().getResponse().getPayload().toStringUtf8();
+//                System.out.println("Successful install proposal response Txid: " + r.getTransactionID() + " from peer " + r.getPeer().getName());
+//            }
+//        }
+//    }
 }
