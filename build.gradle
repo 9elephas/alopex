@@ -19,9 +19,10 @@ ext {
     springVersion = "4.3.8.RELEASE"
     aspectjVersion = "1.8.10"
     log4jVersion = "2.8.2"
-    jacksonVersion = "2.9.0.pr2"
+    jacksonVersion = "2.9.0.pr3"
     springDataRedisVersion = "1.8.3.RELEASE"
     jredisVersion = "2.9.0"
+    fastJsonVersion = "1.2.31"
 }
 
 
@@ -89,6 +90,11 @@ dependencies {
             "com.fasterxml.jackson.core:jackson-core:$jacksonVersion",
             "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
             "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion",
+            // fastjson 用于把javabean转换成json
+
+
+            // fastjson 用于把javabean转换成json
+            "com.alibaba:fastjson:$fastJsonVersion",
             //  ------------------------------
 
             //  spring redis
@@ -99,10 +105,9 @@ dependencies {
             "redis.clients:jedis:$jredisVersion",
             //  ------------------------------
 
-
             // org.apache.commons
             "commons-beanutils:commons-beanutils:1.9.3",
-            "org.apache.commons:commons-configuration2:2.1.1"
+            "org.apache.commons:commons-configuration2:2.1.1",
             //  ------------------------------
 
     )
