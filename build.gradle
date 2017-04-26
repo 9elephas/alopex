@@ -48,6 +48,9 @@ buildscript {
 
 dependencies {
     compile(
+
+            "javax.servlet:jsp-api:2.0",
+
             //  lombok
             "org.projectlombok:lombok:1.16.16",
             //  ------------------------------

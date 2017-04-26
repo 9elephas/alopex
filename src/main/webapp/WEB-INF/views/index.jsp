@@ -45,7 +45,7 @@
 <div id="wrapper">
     <div id="header"><h1>欢迎使用</h1></div>
     <div id="body" class="clearfix">
-        <div id="aside"><img src="<c:url value="/assets/imgs/alopex_log.jpg" />" width="100%"/>
+        <div id="aside"><img src="<c:url value="/assets/imgs/alopex_logo.jpg" />" width="100%"/>
             <div class="inner"></div>
         </div>
         <div id="main">
