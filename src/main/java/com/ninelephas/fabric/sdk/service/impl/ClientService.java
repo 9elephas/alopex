@@ -88,7 +88,7 @@ public interface ClientService {
      * @return
      * @throws Exception
      */
-    public CompletableFuture<BlockEvent.TransactionEvent> instantiate(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args, String fromYamlFilePath) throws Exception;
+    public Collection<ProposalResponse>  instantiate(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args, String fromYamlFilePath) throws Exception;
 
     /**
      * 数据更新
@@ -99,7 +99,7 @@ public interface ClientService {
      * @return
      * @throws Exception
      */
-    public CompletableFuture<BlockEvent.TransactionEvent> update(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args) throws Exception;
+    public Collection<ProposalResponse>  update(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args) throws Exception;
 
     /**
      * 数据查询

@@ -120,7 +120,7 @@ public class ClientServiceImpl implements ClientService {
      * @return
      * @throws Exception
      */
-    public CompletableFuture<BlockEvent.TransactionEvent> instantiate(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args, String fromYamlFilePath) throws Exception {
+    public Collection<ProposalResponse> instantiate(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args, String fromYamlFilePath) throws Exception {
         if (!user.isRegistered()) {
             throw new Exception("用户没有被注册");
         }
@@ -128,7 +128,12 @@ public class ClientServiceImpl implements ClientService {
             throw new Exception("chain没有初始化");
         }
         client.setUserContext(user);
-        return chain.sendTransaction(chain.sendInstantiationProposal(newInstantiateProposalRequest(chainCodeID, args, fromYamlFilePath), chain.getPeers()), chain.getOrderers());
+
+        Collection<ProposalResponse> responses = chain.sendInstantiationProposal(newInstantiateProposalRequest(chainCodeID, args, fromYamlFilePath), chain.getPeers());
+
+        chain.sendTransaction(responses, chain.getOrderers());
+
+        return responses;
     }
 
     /**
@@ -201,7 +206,7 @@ public class ClientServiceImpl implements ClientService {
      * @return
      * @throws Exception
      */
-    public CompletableFuture<BlockEvent.TransactionEvent> update(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args) throws Exception {
+    public Collection<ProposalResponse> update(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args) throws Exception {
         if (!user.isRegistered()) {
             throw new Exception("用户没有被注册");
         }
@@ -209,7 +214,10 @@ public class ClientServiceImpl implements ClientService {
             throw new Exception("chain没有初始化");
         }
         client.setUserContext(user);
-        return chain.sendTransaction(chain.sendTransactionProposal(newTransactionProposalRequest(chainCodeID, args), chain.getPeers()), chain.getOrderers());
+
+        Collection<ProposalResponse> responses = chain.sendTransactionProposal(newTransactionProposalRequest(chainCodeID, args), chain.getPeers());
+        chain.sendTransaction(responses, chain.getOrderers());
+        return responses;
     }
 
     /**
