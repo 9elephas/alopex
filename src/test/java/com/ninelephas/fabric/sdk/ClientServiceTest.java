@@ -1,6 +1,7 @@
 package com.ninelephas.fabric.sdk;
 
-import com.ninelephas.alopex.configer.ConfigHelper;
+import com.common.ConfigerTest;
+import com.ninelephas.common.configer.ConfigHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
 import com.ninelephas.fabric.sdk.service.impl.ClientService;
 import com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl;
@@ -27,8 +28,8 @@ public class ClientServiceTest {
     public void registTest() throws Exception {
         Configuration configuration = ConfigHelper.getConfig();
         //CA url
-        String caUrl = configuration.getString("ca.url");
-        String secret = configuration.getString("admin.secret");
+        String caUrl = configuration.getString("Fabric.CA.URL");
+        String secret = configuration.getString("Fabric.Admin.Secret");
 
         clientService = new ClientServiceImpl(caUrl);
         //创建用户
@@ -45,21 +46,41 @@ public class ClientServiceTest {
 
     @Test
     public void chainInitializedTest() throws Exception {
-        clientService = new ClientServiceImpl("http://192.168.2.13:7054");
+        Configuration configuration = ConfigHelper.getConfig();
+        //CA url
+        String caUrl = configuration.getString("Fabric.CA.URL");
+        String secret = configuration.getString("Fabric.Admin.Secret");
+        String peerList = configuration.getString("Fabric.Peer.List");
+        String[] peerUrls = peerList.split(",");
+
+        String ordererlist = configuration.getString("Fabric.Orderer.List");
+        String[] ordererUrls = ordererlist.split(",");
+
+        String eventhublist = configuration.getString("Fabric.EventHub.List");
+        String[] eventhubUrls = eventhublist.split(",");
+
+        clientService = new ClientServiceImpl(caUrl);
         String mspID = "Org1MSP";
         UserEntity admin = new UserEntity("admin", mspID);
-        admin.setSecret("adminpw");
+        admin.setSecret(secret);
 
+        //创建chain
         ChainConfiguration chainConfiguration = new ChainConfiguration(new File("/Users/zouwei/projects/alopex/src/test/resources/foo.tx"));
-        Set<Peer> peers = new HashSet<>(2);
-        peers.add(clientService.newPeer("peer0", "grpc://192.168.2.13:7051", null));
-        peers.add(clientService.newPeer("peer1", "grpc://192.168.2.13:7056", null));
+        Set<Peer> peers = new HashSet<>();
+        for (int i = 0; i < peerUrls.length; i++) {
+            peers.add(clientService.newPeer("peer" + i, peerUrls[i], null));
+        }
 
-        Set<Orderer> orders = new HashSet<>(1);
-        orders.add(clientService.newOrder("orderer0", "grpc://192.168.2.13:7050", null));
+        Set<Orderer> orders = new HashSet<>();
+        for (int i = 0; i < ordererUrls.length; i++) {
+            orders.add(clientService.newOrder("orderer" + i, ordererUrls[i], null));
+        }
 
-        Set<EventHub> eventHubs = new HashSet<>(1);
-        eventHubs.add(clientService.newEventHub("eventhub0", "grpc://192.168.2.13:7053", null));
+
+        Set<EventHub> eventHubs = new HashSet<>();
+        for (int i = 0; i < eventhubUrls.length; i++) {
+            eventHubs.add(clientService.newEventHub("eventhub" + i, eventhubUrls[i], null));
+        }
 
         Chain chain = clientService.newChainAndInitialize(admin, "foo", chainConfiguration, orders, peers, eventHubs);
 
@@ -73,16 +94,16 @@ public class ClientServiceTest {
     public void installTest() throws Exception {
         Configuration configuration = ConfigHelper.getConfig();
         //CA url
-        String caUrl = configuration.getString("ca.url");
-        String secret = configuration.getString("admin.secret");
-        String peerList = configuration.getString("peerlist");
+        String caUrl = configuration.getString("Fabric.CA.URL");
+        String secret = configuration.getString("Fabric.Admin.Secret");
+        String peerList = configuration.getString("Fabric.Peer.List");
         String[] peerUrls = peerList.split(",");
 
-        String ordererlist = configuration.getString("ordererlist");
-        String[] ordererUrls = peerList.split(",");
+        String ordererlist = configuration.getString("Fabric.Orderer.List");
+        String[] ordererUrls = ordererlist.split(",");
 
-        String eventhublist = configuration.getString("eventhublist");
-        String[] eventhubUrls = peerList.split(",");
+        String eventhublist = configuration.getString("Fabric.EventHub.List");
+        String[] eventhubUrls = eventhublist.split(",");
 
 
         clientService = new ClientServiceImpl(caUrl);
@@ -96,18 +117,18 @@ public class ClientServiceTest {
         boolean res = clientService.regist(user);
         //创建chain
         ChainConfiguration chainConfiguration = new ChainConfiguration(new File("/Users/zouwei/projects/alopex/src/test/resources/foo.tx"));
-        Set<Peer> peers = new HashSet<>(2);
+        Set<Peer> peers = new HashSet<>();
         for (int i = 0; i < peerUrls.length; i++) {
             peers.add(clientService.newPeer("peer" + i, peerUrls[i], null));
         }
 
-        Set<Orderer> orders = new HashSet<>(1);
+        Set<Orderer> orders = new HashSet<>();
         for (int i = 0; i < ordererUrls.length; i++) {
             orders.add(clientService.newOrder("orderer" + i, ordererUrls[i], null));
         }
 
 
-        Set<EventHub> eventHubs = new HashSet<>(1);
+        Set<EventHub> eventHubs = new HashSet<>();
         for (int i = 0; i < eventhubUrls.length; i++) {
             eventHubs.add(clientService.newEventHub("eventhub" + i, eventhubUrls[i], null));
         }
@@ -135,16 +156,16 @@ public class ClientServiceTest {
     public void instantiateTest() throws Exception {
         Configuration configuration = ConfigHelper.getConfig();
         //CA url
-        String caUrl = configuration.getString("ca.url");
-        String secret = configuration.getString("admin.secret");
-        String peerList = configuration.getString("peerlist");
+        String caUrl = configuration.getString("Fabric.CA.URL");
+        String secret = configuration.getString("Fabric.Admin.Secret");
+        String peerList = configuration.getString("Fabric.Peer.List");
         String[] peerUrls = peerList.split(",");
 
-        String ordererlist = configuration.getString("ordererlist");
-        String[] ordererUrls = peerList.split(",");
+        String ordererlist = configuration.getString("Fabric.Orderer.List");
+        String[] ordererUrls = ordererlist.split(",");
 
-        String eventhublist = configuration.getString("eventhublist");
-        String[] eventhubUrls = peerList.split(",");
+        String eventhublist = configuration.getString("Fabric.EventHub.List");
+        String[] eventhubUrls = eventhublist.split(",");
 
 
         clientService = new ClientServiceImpl(caUrl);
@@ -158,18 +179,18 @@ public class ClientServiceTest {
         boolean res = clientService.regist(user);
         //创建chain
         ChainConfiguration chainConfiguration = new ChainConfiguration(new File("/Users/zouwei/projects/alopex/src/test/resources/foo.tx"));
-        Set<Peer> peers = new HashSet<>(2);
+        Set<Peer> peers = new HashSet<>();
         for (int i = 0; i < peerUrls.length; i++) {
             peers.add(clientService.newPeer("peer" + i, peerUrls[i], null));
         }
 
-        Set<Orderer> orders = new HashSet<>(1);
+        Set<Orderer> orders = new HashSet<>();
         for (int i = 0; i < ordererUrls.length; i++) {
             orders.add(clientService.newOrder("orderer" + i, ordererUrls[i], null));
         }
 
 
-        Set<EventHub> eventHubs = new HashSet<>(1);
+        Set<EventHub> eventHubs = new HashSet<>();
         for (int i = 0; i < eventhubUrls.length; i++) {
             eventHubs.add(clientService.newEventHub("eventhub" + i, eventhubUrls[i], null));
         }
