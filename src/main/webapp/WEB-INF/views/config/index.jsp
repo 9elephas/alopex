@@ -19,14 +19,12 @@
     <tr>
         <th>名称</th>
         <th>值</th>
-        <th width="200px">操作</th>
     </tr>
     </thead>
     <tfoot>
     <tr>
         <th>名称</th>
         <th>值</th>
-        <th>操作</th>
     </tr>
     </tfoot>
 </table>

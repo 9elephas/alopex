@@ -17,21 +17,13 @@ $().ready(
                     "url": contextPath + "/assets/js/lib//DataTables-1.10.15/chinese.lang.json"
                 },
                 "columns": [{
-                    "data": "id"
-                }, {
                     "data": "key"
                 }, {
                     "data": "value"
                 }],
                 "columnDefs": [{
                     orderable: false,
-                    targets: [0]
-                }, {
-                    "render": function (data, type, row) {
-                        return '<a href="javascript:void(0)" onClick="fun_edit_property_for_modal(\'' + contextPath + "/properties/"
-                            + row.id + '/edit\')">' + data + "</a>"
-                    },
-                    "targets": [1]
+                    targets: [0,1]
                 }]
             });
     }
