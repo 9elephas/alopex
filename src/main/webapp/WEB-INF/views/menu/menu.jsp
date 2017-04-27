@@ -1,5 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%> 
-<%@ include file="../layouts/head.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ include file="../layouts/head.jsp" %>
 
 <script src="<%=request.getContextPath()%>/assets/js/menu/menu.js"></script>
 <link href="<%=request.getContextPath()%>/assets/css/menu/menu.css" rel="stylesheet">
@@ -12,7 +12,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="navbar-header col-md-2">
-                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-collapse">
+                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                            data-target=".bs-example-js-navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -26,22 +27,29 @@
                             <a href="<%=request.getContextPath()%>/main" data-ref="rf1">首页</a>
                         </li>
                         <li role="separator" class="divider"></li>
-                        <li>         
-                            <a href="../product_details/index.html" data-ref="rf2">产品</a>
+                        <li>
+                            <a href="#" data-ref="rf2">产品</a>
                         </li>
                         <li>
-                            <a href="" data-ref="rf3">内容</a>
+                            <a href="#" data-ref="rf3">内容</a>
                         </li>
                         <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="" data-ref="rf7">系统</a>
-                        </li>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">系统 <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="<%=request.getContextPath()%>/config/index">参数设置</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </ul>
                 </div>
-                    <div class="col-md-2">
-                        <ul class="nav navbar-nav navbar-right">
+                <div class="col-md-2">
+                    <ul class="nav navbar-nav navbar-right">
                         <li id="fat-menu" class="dropdown">
-                            <a id="drop3" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a id="drop3" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
                                 你好：<%=session.getAttribute("current_user") %>
                                 <span class="caret"></span>
                             </a>
@@ -59,9 +67,9 @@
                             </ul>
                         </li>
                     </ul>
-                  </div>
+                </div>
             </div>
-        </div>        
-    </nav>   
+        </div>
+    </nav>
 </div>
 

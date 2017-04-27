@@ -3,7 +3,7 @@
 }
 .logo_img_div img{
     width: 50px;
-    heigth: 50px;   
+    heigth: 50px;
 }
 
 /*主导航[左侧导航+顶部导航]*/
@@ -54,7 +54,7 @@
     border-radius:0
 }
 .navbar-header{
-    margin-left:30px;   
+    margin-left:30px;
 }
 .navbar{
     background-image:none;

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  * Created by roamer on 2017/4/27.
@@ -35,5 +36,17 @@ public class ConfigerTest {
         log.info(String.format("重新获取 %s 的属性值是: %s", KEY_NAME, ConfigHelper.getConfig().getString(KEY_NAME)));
     }
 
+    /**
+     * 测试获取 ocnfig 中所有的 key 值
+     */
+    @Test
+    public void getKeys(){
+        Iterator iter = ConfigHelper.getConfig().getKeys();
+
+        while (iter.hasNext()) {
+            log.info(String.format("当前的 key 是[ %s ]", (String) iter.next()));
+        }
+
+    }
 
 }

@@ -15,5 +15,7 @@
 <script>
     var contextPath = "<%=request.getContextPath()%>";
 </script>
-
+<title>
+    Alopex
+</title>
 
