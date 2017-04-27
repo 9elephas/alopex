@@ -2,12 +2,30 @@
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://commons.apache.org/employee"
         xsi:schemaLocation="http://commons.apache.org/employee http://commons.apache.org/sample.xsd">
+    <!--应用系统部分-->
     <System>
         <AppName>fabric rest 服务平台</AppName>
     </System>
+    <!--Fabric 环境部分-->
     <Fabric>
-
+        <Admin>
+            <Secret>adminpw</Secret>
+        </Admin>
+        <CA>
+            <URL>http://192.168.2.13:7054</URL>
+        </CA>
+        <Peer>
+            <List>grpc://192.168.2.13:7051,grpc://192.168.2.13:7056</List>
+        </Peer>
+        <Orderer>
+            <List>grpc://192.168.2.13:7050</List>
+        </Orderer>
+        <EventHub>
+            <List>grpc://192.168.2.13:7053</List>
+        </EventHub>
     </Fabric>
+
+    <!--测试部分-->
     <Test>
         <Item>
             阿萨德飞洒地方111
