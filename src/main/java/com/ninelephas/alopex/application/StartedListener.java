@@ -1,6 +1,7 @@
-package com.ninelephas.alopex.configer;
+package com.ninelephas.alopex.application;
 
 
+import com.ninelephas.common.configer.ConfigHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
@@ -19,7 +20,7 @@ import java.util.Properties;
  *
  */
 @Log4j2
-@Service("com.ninelephas.alopex.configer.startedListener")
+@Service("com.ninelephas.alopex.application.StartedListener")
 public class StartedListener implements ApplicationListener<ContextRefreshedEvent> {
     /**
      * @author 徐泽宇
@@ -41,7 +42,9 @@ public class StartedListener implements ApplicationListener<ContextRefreshedEven
                                                               // 没有parent，他就是老大.
         {
             //  读取配置文件
-            log.info(String.format("项目名称是:[%s]",ConfigHelper.getConfig().getString("system.AppName")));
+            log.info(String.format("项目名称是:[%s]", ConfigHelper.getConfig().getString("System.AppName")));
+
+            //
             log.debug("onApplicationEvent(ContextRefreshedEvent) - start"); //$NON-NLS-1$
             // 需要执行的逻辑代码，当spring容器初始化完成后就会执行该方法。
             Properties properties = System.getProperties();

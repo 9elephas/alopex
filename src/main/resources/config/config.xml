@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://commons.apache.org/employee"
+        xsi:schemaLocation="http://commons.apache.org/employee http://commons.apache.org/sample.xsd">
+    <System>
+        <AppName>fabric rest 服务平台</AppName>
+    </System>
+    <Fabric>
+
+    </Fabric>
+    <Test>
+        <Item>
+            阿萨德飞洒地方111
+        </Item>
+    </Test>
+</Config>

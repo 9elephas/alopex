@@ -18,7 +18,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<%=request.getContextPath()%>/">Alopex Fabric 控制平台</a>
+                    <a class="navbar-brand" href="<%=request.getContextPath()%>/">Alopex 控制平台</a>
                 </div>
                 <div class="col-md-7">
                     <ul class="nav navbar-nav" id="s-menu">
@@ -33,15 +33,6 @@
                             <a href="" data-ref="rf3">内容</a>
                         </li>
                         <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="" data-ref="rf4">发现</a>
-                        </li>
-                        <li>
-                            <a href="" data-ref="rf5">资讯</a>
-                        </li>
-                        <li>
-                            <a href="" data-ref="rf6">用户</a>
-                        </li>
                         <li>
                             <a href="" data-ref="rf7">系统</a>
                         </li>
