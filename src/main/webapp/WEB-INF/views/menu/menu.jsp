@@ -7,7 +7,7 @@
 <div class="navbar-content">
     <nav id="navbar-example" class="navbar navbar-default navbar-static">
         <div class="logo_img_div">
-            <img class="logo_img" src="<%=request.getContextPath()%>/assets/imgs/alopex_logo.jpg">
+            <%--<img class="logo_img" src="<%=request.getContextPath()%>/assets/imgs/alopex_logo.jpg">--%>
         </div>
         <div class="container-fluid">
             <div class="row">
