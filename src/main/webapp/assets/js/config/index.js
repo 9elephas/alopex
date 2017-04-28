@@ -7,8 +7,9 @@ var editor;
 $().ready(
     function () {
         editor = new $.fn.dataTable.Editor({
-            ajax: contextPath + "/config/getAllForDatatableContent",
+            ajax: "/config/getAllForDatatableContent",
             table: "#config_items_table",
+            display: 'bootstrap',
             idSrc: "id",
             fields: [{
                 label: "属性 key",
@@ -19,14 +20,25 @@ $().ready(
             }],
             i18n: {
                 edit: {
-                    button: "Modifier",
-                    title: "Modifier entrée",
+                    button: "修改",
+                    title: "修改配置项",
                     submit: "更新"
+                },
+                create:{
+                    button: "增加",
+                    title: "增加配置项",
+                    submit: "更新"
+                },
+                remove:{
+                    button: "删除",
+                    title: "删除配置项",
+                    submit: "确认"
                 }
             }
         });
         config_items_table = $("#config_items_table").DataTable(
             {
+                dom: "Bfrtip",
                 "processing": true,
                 // "serverSide": true,
                 "ajax": {
@@ -44,15 +56,19 @@ $().ready(
                     orderable: false,
                     targets: [0, 1]
                 }],
-                select: {
-                    style: 'os',
-                    selector: 'td:first-child'
-                }
+                select: true,
+                buttons: [
+                    { extend: "create", editor: editor },
+                    { extend: "edit",   editor: editor },
+                    { extend: "remove", editor: editor }
+                ]
             });
 
-        // Activate the bubble editor on click of a table cell
-        $('#config_items_table').on('click', 'tbody td:not(:first-child)', function (e) {
-            editor.bubble(this);
-        });
+        // // Activate the bubble editor on click of a table cell
+        // $('#config_items_table').on('click', 'tbody td:not(:first-child)', function (e) {
+        //     editor.bubble(this,{
+        //         submit: 'allIfChanged'
+        //     });
+        // });
     }
 )
