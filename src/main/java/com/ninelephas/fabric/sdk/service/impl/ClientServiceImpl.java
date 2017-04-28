@@ -8,6 +8,7 @@ import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.nio.channels.Channel;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -237,6 +238,22 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
+    /**
+     *
+     * @param chainCodeID
+     * @param args
+     * @return
+     * @throws Exception
+     */
+    private UpgradeProposalRequest newUpgradeProposalRequest(ChainCodeID chainCodeID, String[] args) throws Exception {
+        UpgradeProposalRequest upgradeProposalRequest = client.newUpgradeProposalRequest();
+        upgradeProposalRequest.setArgs(args);
+        upgradeProposalRequest.setChaincodeID(chainCodeID);
+        upgradeProposalRequest.setFcn("invoke");
+        return upgradeProposalRequest;
+    }
+
+
     private Chain newChainNotInitialize(UserEntity admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception {
         if (admin.getEnrollment() == null) {
             regist(admin);
@@ -302,71 +319,18 @@ public class ClientServiceImpl implements ClientService {
         return client.newEventHub(eventHubName, eventHubLocation, properties);
     }
 
+    /**
+     * 获取peer下所有的channel
+     * @param peer
+     * @return
+     * @throws Exception
+     */
+    public Set<String> queryChannels(Peer peer)throws Exception{
+        return client.queryChannels(peer);
+    }
 
-//    public static void main(String[] args) throws Exception {
-//        ClientServiceImpl test = new ClientServiceImpl();
-//        HFClient client = test.client;
-//        //创建用户
-//        String mspID = "Org1MSP";
-//        UserEntity admin = new UserEntity("admin", mspID);
-//        admin.setSecret("adminpw");
-//        UserEntity user = new UserEntity("user1", mspID);
-//        user.setAffiliation("org1.department1");
-//        user.setAdmin(admin);
-//
-//        //clientService.enroll(client,ca,admin);
-//        //注册用户
-//        test.regist(user);
-//
-//        ChainConfiguration chainConfiguration = new ChainConfiguration(new File("src/test/fixture/sdkintegration/e2e-2Orgs/channel/foo.tx"));
-//        Set<Peer> peers = new HashSet<>(2);
-//
-//        peers.add(test.newPeer("peer0", "grpc://192.168.2.13:7051", null));
-//        //peers.add(test.newPeer("peer1", "grpc://192.168.2.13:7056", null));
-//
-//        Set<Orderer> orders = new HashSet<>(1);
-//        orders.add(test.newOrder("orderer0", "grpc://192.168.2.13:7050", null));
-//
-//        Set<EventHub> eventHubs = new HashSet<>(1);
-//        eventHubs.add(test.newEventHub("eventhub0", "grpc://192.168.2.13:7053", null));
-//
-//        Chain chain = test.newChainAndInitialize(user.getAdmin(), "foo", chainConfiguration, orders, peers, eventHubs);
-//
-//        chain.joinPeer(test.newPeer("peer1", "grpc://192.168.2.13:7056", null));
-//
-//        ChainCodeID chainCodeID = ChainCodeID.newBuilder().setName("example_cc_go").setPath("github.com/example_cc").setVersion("1").build();
-//
-//        test.install(user, chain, chainCodeID, "src/test/fixture/sdkintegration/gocc/sample1", "1", TransactionRequest.Type.GO_LANG);
-//
-//        test.instantiate(user, chain, chainCodeID, new String[]{"a", "500", "b", "400"}, "src/test/fixture/sdkintegration/chaincodeendorsementpolicy.yaml");
-//
-//        Collection<ProposalResponse> res = test.query(user, chain, chainCodeID, new String[]{"query", "b"});
-//
-//        for (ProposalResponse r : res) {
-//            ChainCodeResponse.Status status = r.getStatus();
-//            if (status.equals(ChainCodeResponse.Status.SUCCESS)) {
-//                String payload = r.getProposalResponse().getResponse().getPayload().toStringUtf8();
-//                System.out.println("Successful install proposal response Txid: " + r.getTransactionID() + " from peer " + r.getPeer().getName());
-//            }
-//        }
-//
-//
-//        ClientServiceImpl test1 = new ClientServiceImpl();
-//
-//        HFClient client1 = test1.client;
-//
-//        Chain chain1 = client1.getChain("foo");
-//
-//        chain.isInitialized();
-//
-//        res = test1.query(user, chain1, chainCodeID, new String[]{"query", "a"});
-//
-//        for (ProposalResponse r : res) {
-//            ChainCodeResponse.Status status = r.getStatus();
-//            if (status.equals(ChainCodeResponse.Status.SUCCESS)) {
-//                String payload = r.getProposalResponse().getResponse().getPayload().toStringUtf8();
-//                System.out.println("Successful install proposal response Txid: " + r.getTransactionID() + " from peer " + r.getPeer().getName());
-//            }
-//        }
-//    }
+
+    public static void main(String[] args) throws Exception {
+
+    }
 }
