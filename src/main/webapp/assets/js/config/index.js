@@ -45,7 +45,11 @@ $().ready(
                 remove: {
                     button: "删除",
                     title: "删除配置项",
-                    submit: "确认"
+                    submit: "确认",
+                    confirm: {
+                        _: "确认删除这条记录?",
+                        1: "确认删除这条记录?"
+                    }
                 }
             }
         });
