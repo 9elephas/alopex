@@ -21,7 +21,7 @@ $().ready(
                 },
                 remove: {
                     type: 'DELETE',
-                    url: contextPath + "/config/remove?id=_id_"
+                    url: contextPath + "/config/rest/remove?key=_id_"
                 }
             },
             fields: [{

@@ -59,13 +59,14 @@ public class ConfigHelper {
         builder.save();
     }
 
+
     /**
-     * 保存配置
-     *
+     * 移除一个配置项
+     * @param key
      * @throws ConfigurationException
      */
-    public static void saveConfig() throws ConfigurationException {
-        builder.save();
+    public static void removeProperty(String key) throws ConfigurationException{
+        config.clearProperty(key);
     }
 
 }
