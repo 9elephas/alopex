@@ -139,7 +139,10 @@ public class ConfigController {
         configItem.setKey(new_key);
         configItem.setValue(new_value);
         try {
-            configService.updateItem(configItem);
+            // 为了适应修改 key 的情况，可以先删除原有的 key 的配置项
+            configService.removeItem(key);
+            // 再增加新修改的配置项
+            configService.addItem(configItem);
         } catch (ConfigurationException e) {
             e.printStackTrace();
             log.error(e);
