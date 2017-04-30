@@ -33,7 +33,6 @@ public class ConfigHelper {
                         .setFileName("config/config.xml"));
         try {
             config = builder.getConfiguration();
-            builder.setAutoSave(true);
         } catch (ConfigurationException cex) {
             log.error(cex, cex.fillInStackTrace()); //$NON-NLS-1$
         }
@@ -67,6 +66,7 @@ public class ConfigHelper {
      */
     public static void removeProperty(String key) throws ConfigurationException{
         config.clearProperty(key);
+        builder.save();
     }
 
 }

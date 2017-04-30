@@ -37,20 +37,31 @@ public class ConfigService {
 
     /**
      * 增加一个配置项目
+     *
      * @param item
      * @throws ConfigurationException
      */
-    public void addItem(ConfigItem item ) throws ConfigurationException {
+    public void addItem(ConfigItem item) throws ConfigurationException {
         ConfigHelper.setProperty(item.getKey(), item.getValue());
     }
 
     /**
      * 从配置文件中移除一个配置项
-     * @param id
+     *
+     * @param key
      * @throws ConfigurationException
      */
-    public void removeItem(String id) throws ConfigurationException {
-        ConfigHelper.removeProperty(id);
+    public void removeItem(String key) throws ConfigurationException {
+        ConfigHelper.removeProperty(key);
     }
 
+
+    /**
+     * 更新一个配置项
+     * @param item
+     * @throws ConfigurationException
+     */
+    public void updateItem(ConfigItem item) throws ConfigurationException {
+        ConfigHelper.setProperty(item.getKey(),item.getValue());
+    }
 }

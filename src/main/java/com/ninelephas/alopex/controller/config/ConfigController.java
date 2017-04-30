@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,27 +55,8 @@ public class ConfigController {
     String indexForDatatable() throws ControllerException {
         // 获取所有的 config item
         ArrayList<ConfigItem> arrayListItem = configService.getKeys();
-        HashMap<String, List<Object>> root = new HashMap<String, List<Object>>();
-        List<Object> data = new ArrayList<Object>();
-
-        for (ConfigItem item : arrayListItem) {
-            HashMap<String, Object> itemHash = new HashMap<String, Object>();
-            itemHash.put("id", item.getKey());
-            itemHash.put("key", item.getKey());
-            itemHash.put("value", item.getValue());
-            data.add(itemHash);
-        }
-        root.put("data", data);
-
-        String m_rtn = null;
-        //使用 fastjson 进行 json 化
-        try {
-            m_rtn = JsonUtilsHelper.ObjectToJsonString(root);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            log.error(e);
-        }
-        log.debug(String.format("返回的 json 字符串是:\n %s", m_rtn));
+        String m_rtn;
+        m_rtn = this.gerenateJson(arrayListItem);
         return m_rtn;
     }
 
@@ -102,26 +84,12 @@ public class ConfigController {
             log.error(e);
             throw new ControllerException(e.getMessage());
         }
-        // ----------------------------------------------
-        // 生成返回 jason 字符串
-        HashMap<String, List<Object>> root = new HashMap<String, List<Object>>();
-        List<Object> data = new ArrayList<Object>();
-        HashMap<String, Object> itemHash = new HashMap<String, Object>();
-        itemHash.put("id", configItem.getKey());
-        itemHash.put("key", configItem.getKey());
-        itemHash.put("value", configItem.getValue());
-        data.add(itemHash);
-        root.put("data", data);
 
-        //使用 fastjson 进行 json 化
         String m_rtn = null;
-        try {
-            m_rtn = JsonUtilsHelper.ObjectToJsonString(root);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            log.error(e);
-        }
-        log.debug(String.format("返回的字符串是：%s", m_rtn));
+        //使用 fastjson 进行 json 化
+        ArrayList<ConfigItem> arrayListItem = new ArrayList<>();
+        arrayListItem.add(configItem);
+        m_rtn = this.gerenateJson(arrayListItem);
         return m_rtn;
     }
 
@@ -151,6 +119,67 @@ public class ConfigController {
             log.error(e);
             throw new ControllerException(e.getMessage());
         }
+        return m_rtn;
+    }
+
+    /**
+     * 更新一个配置项
+     * 上传的 参数是 data[<原有的 key>][key]=aa333&data[<原有的 key>][value]=bbb
+     *
+     * @return
+     * @throws ControllerException
+     */
+    @RequestMapping(value = "/rest/edit", method = RequestMethod.PUT)
+    public @ResponseBody
+    String upate(@RequestParam(value = "key") String key, HttpServletRequest request) throws ControllerException {
+        String new_key = (String) request.getParameter(String.format("data[%s][key]", key));
+        String new_value = (String) request.getParameter(String.format("data[%s][value]", key));
+        log.debug(String.format("配置项将被修改成 key【%s】， value 【%s】 ", new_key, new_value));
+        ConfigItem configItem = new ConfigItem();
+        configItem.setKey(new_key);
+        configItem.setValue(new_value);
+        try {
+            configService.updateItem(configItem);
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+            log.error(e);
+            throw new ControllerException(e.getMessage());
+        }
+        //使用 fastjson 进行 json 化
+        String m_rtn;
+        ArrayList<ConfigItem> arrayListItem = new ArrayList<>();
+        arrayListItem.add(configItem);
+        m_rtn = this.gerenateJson(arrayListItem);
+        return m_rtn;
+    }
+
+
+    /**
+     * 把配置项目属性转换成 json 字符串
+     */
+    private String gerenateJson(ArrayList<ConfigItem> arrayListItem) throws ControllerException {
+        HashMap<String, List<Object>> root = new HashMap<String, List<Object>>();
+        List<Object> data = new ArrayList<Object>();
+
+        for (ConfigItem item : arrayListItem) {
+            HashMap<String, Object> itemHash = new HashMap<String, Object>();
+            itemHash.put("id", item.getKey());
+            itemHash.put("key", item.getKey());
+            itemHash.put("value", item.getValue());
+            data.add(itemHash);
+        }
+        root.put("data", data);
+
+        String m_rtn = null;
+        //使用 fastjson 进行 json 化
+        try {
+            m_rtn = JsonUtilsHelper.ObjectToJsonString(root);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            log.error(e);
+            throw new ControllerException(e.getMessage());
+        }
+        log.debug(String.format("返回的 json 字符串是:\n %s", m_rtn));
         return m_rtn;
     }
 }

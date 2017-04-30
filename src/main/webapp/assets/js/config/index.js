@@ -17,7 +17,7 @@ $().ready(
                 },
                 edit: {
                     type: 'PUT',
-                    url: contextPath + "/config/edit.php?id=_id_"
+                    url: contextPath + "/config/rest/edit?key=_id_"
                 },
                 remove: {
                     type: 'DELETE',
