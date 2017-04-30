@@ -7,10 +7,23 @@ var editor;
 $().ready(
     function () {
         editor = new $.fn.dataTable.Editor({
-            ajax: "/config/getAllForDatatableContent",
             table: "#config_items_table",
             display: 'bootstrap',
             idSrc: "id",
+            ajax: {
+                create: {
+                    type: 'POST',
+                    url: contextPath + "/config/rest/create"
+                },
+                edit: {
+                    type: 'PUT',
+                    url: contextPath + "/config/edit.php?id=_id_"
+                },
+                remove: {
+                    type: 'DELETE',
+                    url: contextPath + "/config/remove?id=_id_"
+                }
+            },
             fields: [{
                 label: "属性 key",
                 name: "key"
@@ -24,12 +37,12 @@ $().ready(
                     title: "修改配置项",
                     submit: "更新"
                 },
-                create:{
+                create: {
                     button: "增加",
                     title: "增加配置项",
-                    submit: "更新"
+                    submit: "增加"
                 },
-                remove:{
+                remove: {
                     button: "删除",
                     title: "删除配置项",
                     submit: "确认"
@@ -42,7 +55,7 @@ $().ready(
                 "processing": true,
                 // "serverSide": true,
                 "ajax": {
-                    url: contextPath + "/config/getAllForDatatableContent",
+                    url: contextPath + "/config/rest/index.json",
                     type: 'get'
                 },
                 "language": {
@@ -58,17 +71,10 @@ $().ready(
                 }],
                 select: true,
                 buttons: [
-                    { extend: "create", editor: editor },
-                    { extend: "edit",   editor: editor },
-                    { extend: "remove", editor: editor }
+                    {extend: "create", editor: editor},
+                    {extend: "edit", editor: editor},
+                    {extend: "remove", editor: editor}
                 ]
             });
-
-        // // Activate the bubble editor on click of a table cell
-        // $('#config_items_table').on('click', 'tbody td:not(:first-child)', function (e) {
-        //     editor.bubble(this,{
-        //         submit: 'allIfChanged'
-        //     });
-        // });
     }
 )
