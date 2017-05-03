@@ -23,16 +23,18 @@
                 </div>
                 <div class="col-md-7">
                     <ul class="nav navbar-nav" id="s-menu">
-                        <li class="active">
+                        <li class="">
                             <a href="<%=request.getContextPath()%>/main" data-ref="rf1">首页</a>
                         </li>
                         <li role="separator" class="divider"></li>
-                        <li>
-                            <a href="#" data-ref="rf2">产品</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">Fabric 功能测试 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<%=request.getContextPath()%>/fabric/user/create">用户注册</a></li>
+                            </ul>
                         </li>
-                        <li>
-                            <a href="#" data-ref="rf3">内容</a>
-                        </li>
+
                         <li role="separator" class="divider"></li>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
