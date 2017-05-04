@@ -55,14 +55,26 @@ public class UserEntity implements User, Serializable {
         this.mspID = mspID;
     }
 
+    /**
+     * 判断是否已注册
+     * @return
+     */
     public boolean isEnrolled() {
         return this.enrollment != null;
     }
 
+    /**
+     * 判断是否生成secret
+     * @return
+     */
     public boolean isRegistered() {
         return !StringUtil.isNullOrEmpty(this.secret);
     }
 
+    /**
+     * 非管理员用户需要设置管理员，管理员用户该字段为null
+     * @param admin
+     */
     public void setAdmin(UserEntity admin) {
         this.admin = admin;
     }
