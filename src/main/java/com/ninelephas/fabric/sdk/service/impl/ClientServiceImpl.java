@@ -31,18 +31,8 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
-    //private static HFCAClient ca;
-
-//    static {
-//        try {
-//            ca = new HFCAClient("http://192.168.2.13:7054", null);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     /**
-     * 用户注册
+     * 用户注册（兼容管理员注册）
      *
      * @param user
      * @return
@@ -61,12 +51,20 @@ public class ClientServiceImpl implements ClientService {
         return enroll(user);
     }
 
+    /**
+     * 注册管理员只需要执行这一步
+     * @param user
+     * @return
+     * @throws Exception
+     */
     private boolean enroll(UserEntity user) throws Exception {
         if (!user.isEnrolled()) {
             user.setEnrollment(ca.enroll(user.getName(), user.getSecret()));
         }
         return user.isEnrolled();
     }
+
+
 
     /**
      * 执行install操作
