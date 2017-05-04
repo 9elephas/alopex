@@ -13,7 +13,7 @@
           http://www.springframework.org/schema/task
           http://www.springframework.org/schema/task/spring-task-4.3.xsd"
        default-lazy-init="false">
-    <context:property-placeholder location="classpath:config/*.properties"/>
+    <!--<context:property-placeholder location="classpath:config/*.properties"/>-->
     <!--开启这个配置，spring识别@Scheduled注解 -->
     <task:annotation-driven/>
     <!-- -->
@@ -100,4 +100,8 @@
     <!-- 配置_Druid和Spring关联监控配置 end-->
 
 
+    <bean id="clientService" class="com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl">
+        <constructor-arg index="0" value="http://192.168.2.13:7054"></constructor-arg>
+
+    </bean>
 </beans>

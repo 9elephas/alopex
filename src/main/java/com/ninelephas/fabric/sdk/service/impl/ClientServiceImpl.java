@@ -2,15 +2,15 @@ package com.ninelephas.fabric.sdk.service.impl;
 
 import com.ninelephas.fabric.sdk.entity.UserEntity;
 import com.ninelephas.fabric.sdk.util.ClientUtil;
+import org.hyperledger.fabric.protos.peer.Query;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.nio.channels.Channel;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zouwei on 2017/4/21.
@@ -132,7 +132,8 @@ public class ClientServiceImpl implements ClientService {
 
         Collection<ProposalResponse> responses = chain.sendInstantiationProposal(newInstantiateProposalRequest(chainCodeID, args, fromYamlFilePath), chain.getPeers());
 
-        chain.sendTransaction(responses, chain.getOrderers());
+
+        chain.sendTransaction(responses, chain.getOrderers()).get(120, TimeUnit.SECONDS);
 
         return responses;
     }
@@ -320,7 +321,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     /**
-     * 获取peer下所有的channel
+     * 获取peer下所有的channelId
      * @param peer
      * @return
      * @throws Exception

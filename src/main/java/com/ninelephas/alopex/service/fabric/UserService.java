@@ -14,6 +14,7 @@ import com.ninelephas.fabric.sdk.service.impl.ClientService;
 import com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.configuration2.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,15 +28,19 @@ import org.springframework.stereotype.Service;
 @Service(" com.ninelephas.alopex.service.fabric.UserService")
 public class UserService {
 
+    /**
+     * 通过spring配置构造函数方式实现IOC
+     */
+    @Autowired
     private ClientService clientService;
 
     public void register(FabricUser fabricUser) throws Exception {
         Configuration configuration = ConfigHelper.getConfig();
         //CA url
-        String caUrl = configuration.getString("Fabric.CA.URL");
+        //String caUrl = configuration.getString("Fabric.CA.URL");
         String secret = configuration.getString("Fabric.Admin.Secret");
 
-        clientService = new ClientServiceImpl(caUrl);
+        //clientService = new ClientServiceImpl(caUrl);
         //创建用户
         String mspID = "Org1MSP";
         UserEntity admin = new UserEntity(fabricUser.getUserName(), mspID);

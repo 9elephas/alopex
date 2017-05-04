@@ -112,4 +112,6 @@ public interface ClientService {
      */
     public Collection<ProposalResponse> query(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args) throws Exception;
 
+
+    public Set<String> queryChannels(Peer peer)throws Exception;
 }
