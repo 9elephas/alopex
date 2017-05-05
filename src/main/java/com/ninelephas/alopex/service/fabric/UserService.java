@@ -10,7 +10,7 @@ package com.ninelephas.alopex.service.fabric;
 import com.ninelephas.alopex.controller.pojo.FabricUser;
 import com.ninelephas.common.configer.ConfigHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
-import com.ninelephas.fabric.sdk.service.impl.ClientService;
+import com.ninelephas.fabric.sdk.service.ClientService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.configuration2.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
