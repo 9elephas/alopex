@@ -28,7 +28,7 @@
     <MethodDict>
         <!--fabric 用户注册-->
         <fabric-user-register>
-            <clazz>com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl</clazz>
+            <beanName>com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl</beanName>
             <method>test</method>
         </fabric-user-register>
     </MethodDict>

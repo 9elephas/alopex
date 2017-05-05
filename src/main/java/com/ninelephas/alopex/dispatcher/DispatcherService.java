@@ -43,18 +43,26 @@ public class DispatcherService {
         log.debug(String.format("开始把 %s 对应到 %s 类的 %s 方法", command, className, method));
         log.debug(String.format("开始运行 %s 类的 %s 方法", className, method));
         WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-        Class c = wac.getBean(className).getClass();
+        Object instanceObj = null;
+        instanceObj = wac.getBean(className);
+        if (instanceObj == null) {
+            throw new ServiceException(String.format("%s 的 Bean 不存在"));
+        }
+        Class c = instanceObj.getClass();
         try {
-            Method test = c.getMethod(method);
+            Method classMethod = c.getDeclaredMethod(method, params.getClass());
             try {
-                Object returnValue = test.invoke(wac.getBean(className), (Object[]) null);
+                classMethod.setAccessible(true);
+                classMethod.invoke(instanceObj, params);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
+                throw new ServiceException(e.getMessage());
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
+                throw new ServiceException(e.getMessage());
             }
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new ServiceException(e.getMessage());
         }
 
     }

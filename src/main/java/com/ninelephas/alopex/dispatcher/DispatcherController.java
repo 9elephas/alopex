@@ -46,11 +46,9 @@ public class DispatcherController {
             //调用解析类，进行这个方法的执行
             dispatcherService.invoke(dispatchCommand);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
             log.error(e.getMessage());
             throw new ControllerException(e.getMessage());
         } catch (ServiceException e) {
-            e.printStackTrace();
             log.error(e.getMessage());
             throw new ControllerException(e.getMessage());
         }

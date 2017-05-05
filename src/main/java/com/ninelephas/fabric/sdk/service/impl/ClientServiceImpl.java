@@ -46,7 +46,9 @@ public class ClientServiceImpl implements ClientService {
      * 用户注册（兼容管理员注册）
      *
      * @param user
+     *
      * @return
+     *
      * @throws Exception
      */
     @Override
@@ -66,7 +68,9 @@ public class ClientServiceImpl implements ClientService {
      * 注册管理员只需要执行这一步
      *
      * @param user
+     *
      * @return
+     *
      * @throws Exception
      */
     private boolean enroll(UserEntity user) throws Exception {
@@ -85,7 +89,9 @@ public class ClientServiceImpl implements ClientService {
      * @param chainCodeSourceLocation
      * @param version
      * @param type
+     *
      * @return
+     *
      * @throws Exception
      */
     public Collection<ProposalResponse> install(UserEntity user, Chain chain, ChainCodeID chainCodeID, String chainCodeSourceLocation, String version, TransactionRequest.Type type) throws Exception {
@@ -106,7 +112,9 @@ public class ClientServiceImpl implements ClientService {
      * @param chainCodeSourceLocation
      * @param version
      * @param type
+     *
      * @return
+     *
      * @throws Exception
      */
     private InstallProposalRequest newInstallProposalRequest(HFClient client, ChainCodeID chainCodeID, String chainCodeSourceLocation, String version, TransactionRequest.Type type) throws Exception {
@@ -127,7 +135,9 @@ public class ClientServiceImpl implements ClientService {
      * @param chainCodeID
      * @param args
      * @param fromYamlFilePath
+     *
      * @return
+     *
      * @throws Exception
      */
     public Collection<ProposalResponse> instantiate(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args, String fromYamlFilePath) throws Exception {
@@ -153,7 +163,9 @@ public class ClientServiceImpl implements ClientService {
      * @param chainCodeID
      * @param args
      * @param fromYamlFilePath
+     *
      * @return
+     *
      * @throws Exception
      */
     private InstantiateProposalRequest newInstantiateProposalRequest(ChainCodeID chainCodeID, String[] args, String fromYamlFilePath) throws Exception {
@@ -179,7 +191,9 @@ public class ClientServiceImpl implements ClientService {
      * @param chain
      * @param chainCodeID
      * @param args
+     *
      * @return
+     *
      * @throws Exception
      */
     public Collection<ProposalResponse> query(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args) throws Exception {
@@ -198,6 +212,7 @@ public class ClientServiceImpl implements ClientService {
      *
      * @param chainCodeID
      * @param args
+     *
      * @return
      */
     private QueryByChaincodeRequest newQueryByChaincodeRequest(ChainCodeID chainCodeID, String[] args) {
@@ -214,7 +229,9 @@ public class ClientServiceImpl implements ClientService {
      * @param chain
      * @param chainCodeID
      * @param args
+     *
      * @return
+     *
      * @throws Exception
      */
     public Collection<ProposalResponse> update(UserEntity user, Chain chain, ChainCodeID chainCodeID, String[] args) throws Exception {
@@ -236,7 +253,9 @@ public class ClientServiceImpl implements ClientService {
      *
      * @param chainCodeID
      * @param args
+     *
      * @return
+     *
      * @throws Exception
      */
     private TransactionProposalRequest newTransactionProposalRequest(ChainCodeID chainCodeID, String[] args) throws Exception {
@@ -251,7 +270,9 @@ public class ClientServiceImpl implements ClientService {
     /**
      * @param chainCodeID
      * @param args
+     *
      * @return
+     *
      * @throws Exception
      */
     private UpgradeProposalRequest newUpgradeProposalRequest(ChainCodeID chainCodeID, String[] args) throws Exception {
@@ -295,7 +316,9 @@ public class ClientServiceImpl implements ClientService {
      * @param peerName
      * @param peerLocation
      * @param properties
+     *
      * @return
+     *
      * @throws Exception
      */
     public Peer newPeer(String peerName, String peerLocation, Properties properties) throws Exception {
@@ -308,7 +331,9 @@ public class ClientServiceImpl implements ClientService {
      * @param orderName
      * @param orderLocation
      * @param properties
+     *
      * @return
+     *
      * @throws Exception
      */
     public Orderer newOrder(String orderName, String orderLocation, Properties properties) throws Exception {
@@ -321,7 +346,9 @@ public class ClientServiceImpl implements ClientService {
      * @param eventHubName
      * @param eventHubLocation
      * @param properties
+     *
      * @return
+     *
      * @throws Exception
      */
     public EventHub newEventHub(String eventHubName, String eventHubLocation, Properties properties) throws Exception {
@@ -332,7 +359,9 @@ public class ClientServiceImpl implements ClientService {
      * 获取peer下所有的channelId
      *
      * @param peer
+     *
      * @return
+     *
      * @throws Exception
      */
     public Set<String> queryChannels(Peer peer) throws Exception {
@@ -340,15 +369,15 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] name) throws Exception {
 
     }
 
-    public void test() throws Exception{
-        log.debug("test 方法被调用了!!!");
+    public void test() {
+        log.debug(String.format("test:[%s] 方法被调用了!!!", " "));
     }
 
-    public void test2() throws Exception{
-        log.debug("test2 方法被调用了!!!");
+    public void test2(String name) {
+        log.debug(String.format("test2:[%s] 方法被调用了!!!", name));
     }
 }

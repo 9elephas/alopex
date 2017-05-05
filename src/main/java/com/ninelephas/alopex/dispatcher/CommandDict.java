@@ -37,7 +37,7 @@ public class CommandDict {
      * @return
      */
     public static String getInvokeClass(String method) {
-        return (String) ConfigHelper.getConfig().getProperty(String.format("%s.%s.clazz",PREIX,method));
+        return (String) ConfigHelper.getConfig().getProperty(String.format("%s.%s.beanName",PREIX,method));
     }
 
     /**
