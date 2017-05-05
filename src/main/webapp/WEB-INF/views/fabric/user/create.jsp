@@ -17,8 +17,7 @@
         <div id="output"></div>
         <div class="avatar"></div>
         <div class="form-box">
-            <input id="user" name="user" type="text" placeholder=" 用户名">
-            <input id="passwd" name="passwd" type="input" placeholder="密码">
+            <input  id="userInfoJsonStringInput"  type="text" value="{&quot;userName&quot;:&quot;roamer&quot;,&quot;userPasswd&quot;:&quot;password&quot;}">
             <button id="registerButton" class="btn btn-info btn-block login" type="submit"> 注册</button>
         </div>
     </div>

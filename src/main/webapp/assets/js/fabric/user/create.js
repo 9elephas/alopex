@@ -7,14 +7,12 @@
 $().ready(
     function () {
         $("#registerButton").click(function () {
-            var userJsonObj = {"userName": $("#user").val(), "password": $("#passwd").val()};
-            var data = JSON.stringify(userJsonObj);
-
+            console.debug(JSON.parse($("#userInfoJsonStringInput").val()));
             //提交后台
             $.ajax({
                 type: "POST",
                 url: contextPath + "/fabric/user/rest/register",
-                data: {userName: $("#user").val(), userPasswd: $("#passwd").val()},
+                data: JSON.parse($("#userInfoJsonStringInput").val()),
                 complete: function (jqXHR ,  textStatus ) {
                     console.debug("调用完成!");
                     console.debug(jqXHR);
