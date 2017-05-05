@@ -31,7 +31,7 @@ import javax.annotation.Resource;
  * @create 2017-05-2017/5/3  下午6:03
  */
 @Log4j2
-@Service(" com.ninelephas.alopex.service.fabric.UserService")
+@Service("com.ninelephas.alopex.service.fabric.UserService")
 public class UserService {
 
     /**
@@ -40,32 +40,23 @@ public class UserService {
     @Autowired
     private ClientService clientService;
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
 
     public void register(FabricUser fabricUser) throws Exception {
-        String userName = fabricUser.getUserName();
-        Boolean hasUserName = redisTemplate.hasKey(userName);
-        if (hasUserName) {
-            throw new ServiceException("该用户已注册");
-        }else{
-            Configuration configuration = ConfigHelper.getConfig();
-            //CA url
-            //String caUrl = configuration.getString("Fabric.CA.URL");
-            String secret = configuration.getString("Fabric.Admin.Secret");
+        Configuration configuration = ConfigHelper.getConfig();
+        //CA url
+        //String caUrl = configuration.getString("Fabric.CA.URL");
+        String secret = configuration.getString("Fabric.Admin.Secret");
 
-            //clientService = new ClientServiceImpl(caUrl);
-            //创建用户
-            String mspID = "Org1MSP";
-            UserEntity admin = new UserEntity("admin", mspID);
-            admin.setSecret(secret);
-            UserEntity user = new UserEntity(userName, mspID);
-            user.setAffiliation("org1.department1");
-            user.setAdmin(admin);
-            if(clientService.regist(user)){
-                redisTemplate.boundSetOps(userName).add(user);
-            }
-        }
+        //clientService = new ClientServiceImpl(caUrl);
+
+        //创建用户
+        String mspID = "Org1MSP";
+        UserEntity admin = new UserEntity("admin", mspID);
+        admin.setSecret(secret);
+        UserEntity user = new UserEntity(fabricUser.getUserName(), mspID);
+        user.setAffiliation("org1.department1");
+        user.setAdmin(admin);
+        clientService.regist(user);
+
     }
 }

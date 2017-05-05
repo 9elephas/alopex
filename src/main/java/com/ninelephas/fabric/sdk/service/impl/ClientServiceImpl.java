@@ -1,11 +1,13 @@
 package com.ninelephas.fabric.sdk.service.impl;
 
+import com.ninelephas.common.configer.ConfigHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
 import com.ninelephas.fabric.sdk.util.ClientUtil;
 import org.hyperledger.fabric.protos.peer.Query;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -15,14 +17,18 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by zouwei on 2017/4/21.
  */
+@Service("com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl")
 public class ClientServiceImpl implements ClientService {
 
     private HFClient client;
 
     private HFCAClient ca;
 
-    public ClientServiceImpl(String caUrl) {
+    private static final String FABRIC_CA_URL = "Fabric.CA.URL";
+
+    public ClientServiceImpl() {
         super();
+        String caUrl = ConfigHelper.getConfig().getString(FABRIC_CA_URL);
         try {
             client = ClientUtil.getClient();
             ca = new HFCAClient(caUrl, null);
@@ -53,6 +59,7 @@ public class ClientServiceImpl implements ClientService {
 
     /**
      * 注册管理员只需要执行这一步
+     *
      * @param user
      * @return
      * @throws Exception
@@ -63,7 +70,6 @@ public class ClientServiceImpl implements ClientService {
         }
         return user.isEnrolled();
     }
-
 
 
     /**
@@ -238,7 +244,6 @@ public class ClientServiceImpl implements ClientService {
 
 
     /**
-     *
      * @param chainCodeID
      * @param args
      * @return
@@ -320,11 +325,12 @@ public class ClientServiceImpl implements ClientService {
 
     /**
      * 获取peer下所有的channelId
+     *
      * @param peer
      * @return
      * @throws Exception
      */
-    public Set<String> queryChannels(Peer peer)throws Exception{
+    public Set<String> queryChannels(Peer peer) throws Exception {
         return client.queryChannels(peer);
     }
 
