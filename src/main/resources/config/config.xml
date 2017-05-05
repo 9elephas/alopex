@@ -24,6 +24,16 @@
         </EventHub>
     </Fabric>
 
+    <!--调度员中的方法和类方法映射部分-->
+    <MethodDict>
+        <!--fabric 用户注册-->
+        <fabric-user-register>
+            <clazz>com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl</clazz>
+            <method>register</method>
+        </fabric-user-register>
+    </MethodDict>
+
+
     <!--测试部分-->
     <Test>
         <Item>

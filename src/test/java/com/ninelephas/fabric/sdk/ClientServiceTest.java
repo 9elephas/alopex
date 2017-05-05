@@ -2,7 +2,7 @@ package com.ninelephas.fabric.sdk;
 
 import com.ninelephas.common.configer.ConfigHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
-import com.ninelephas.fabric.sdk.service.impl.ClientService;
+import com.ninelephas.fabric.sdk.service.ClientService;
 import com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl;
 import org.apache.commons.configuration2.Configuration;
 import org.hyperledger.fabric.sdk.*;
