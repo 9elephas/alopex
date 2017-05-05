@@ -48,7 +48,9 @@ public class UserService {
         UserEntity user = new UserEntity(fabricUser.getUserName(), mspID);
         user.setAffiliation(fabricUser.getAffiliation());
         user.setAdmin(admin);
-        clientService.regist(user);
+        if(clientService.regist(user)){
+            //返回注册后的用户
+        }
 
     }
 }
