@@ -1,6 +1,5 @@
 package com.ninelephas.fabric.sdk;
 
-import com.common.ConfigerTest;
 import com.ninelephas.common.configer.ConfigHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
 import com.ninelephas.fabric.sdk.service.impl.ClientService;
@@ -14,7 +13,6 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 
 /**

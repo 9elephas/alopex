@@ -1,6 +1,7 @@
 package com.ninelephas.fabric.sdk.entity;
 
 import io.netty.util.internal.StringUtil;
+import lombok.Data;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.User;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
  * Created by zouwei on 2017/4/18.
  * 必须要实现fabric的User接口
  */
+@Data
 public class UserEntity implements User, Serializable {
 
     private static final long serialVersionUID = 8077132186383604355L;
@@ -71,50 +73,6 @@ public class UserEntity implements User, Serializable {
         return !StringUtil.isNullOrEmpty(this.secret);
     }
 
-    /**
-     * 非管理员用户需要设置管理员，管理员用户该字段为null
-     * @param admin
-     */
-    public void setAdmin(UserEntity admin) {
-        this.admin = admin;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setRoles(ArrayList<String> roles) {
-        this.roles = roles;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
-    }
-
-    public void setEnrollment(Enrollment enrollment) {
-        this.enrollment = enrollment;
-    }
-
-    public void setMspID(String mspID) {
-        this.mspID = mspID;
-    }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public UserEntity getAdmin() {
-        return this.admin;
-    }
-
     public Boolean isAdmin() {
         return this.admin == null;
     }
@@ -148,6 +106,4 @@ public class UserEntity implements User, Serializable {
     public String getMSPID() {
         return this.mspID;
     }
-
-
 }

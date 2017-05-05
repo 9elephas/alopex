@@ -1,4 +1,4 @@
-package com.ninelephas.fabric.sdk.service.impl;
+package com.ninelephas.fabric.sdk.service;
 
 import com.ninelephas.fabric.sdk.entity.UserEntity;
 import org.hyperledger.fabric.sdk.*;

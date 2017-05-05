@@ -2,6 +2,7 @@ package com.ninelephas.fabric.sdk.service.impl;
 
 import com.ninelephas.common.configer.ConfigHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
+import com.ninelephas.fabric.sdk.service.ClientService;
 import com.ninelephas.fabric.sdk.util.ClientUtil;
 import org.hyperledger.fabric.protos.peer.Query;
 import org.hyperledger.fabric.sdk.*;
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by zouwei on 2017/4/21.
  */
-@Service("com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl")
+@Service("ClientServiceImpl")
 public class ClientServiceImpl implements ClientService {
 
     private HFClient client;
