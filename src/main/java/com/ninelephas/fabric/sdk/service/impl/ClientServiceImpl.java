@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by zouwei on 2017/4/21.
  */
-@Service("ClientServiceImpl")
+@Service("com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl")
 public class ClientServiceImpl implements ClientService {
 
     private HFClient client;
