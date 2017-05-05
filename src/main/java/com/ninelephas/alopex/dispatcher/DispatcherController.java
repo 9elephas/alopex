@@ -9,6 +9,7 @@ package com.ninelephas.alopex.dispatcher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ninelephas.alopex.controller.ControllerException;
+import com.ninelephas.alopex.service.ServiceException;
 import com.ninelephas.common.helper.JsonUtilsHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,11 @@ public class DispatcherController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             log.error(e.getMessage());
+            throw new ControllerException(e.getMessage());
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            throw new ControllerException(e.getMessage());
         }
         log.debug("调度者处理 ---- 完成");
         return "";

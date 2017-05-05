@@ -4,7 +4,7 @@ import com.ninelephas.common.configer.ConfigHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
 import com.ninelephas.fabric.sdk.service.ClientService;
 import com.ninelephas.fabric.sdk.util.ClientUtil;
-import org.hyperledger.fabric.protos.peer.Query;
+import lombok.extern.log4j.Log4j2;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zouwei on 2017/4/21.
  */
+@Log4j2
 @Service("com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl")
 public class ClientServiceImpl implements ClientService {
 
@@ -338,5 +342,13 @@ public class ClientServiceImpl implements ClientService {
 
     public static void main(String[] args) throws Exception {
 
+    }
+
+    public void test() throws Exception{
+        log.debug("test 方法被调用了!!!");
+    }
+
+    public void test2() throws Exception{
+        log.debug("test2 方法被调用了!!!");
     }
 }

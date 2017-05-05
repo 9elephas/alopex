@@ -29,7 +29,7 @@
         <!--fabric 用户注册-->
         <fabric-user-register>
             <clazz>com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl</clazz>
-            <method>register</method>
+            <method>test</method>
         </fabric-user-register>
     </MethodDict>
 
