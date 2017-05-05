@@ -25,7 +25,7 @@
     <mvc:resources location="/assets/" mapping="/assets/**" />
     <!-- spring mvc 能够访问静态内容 end -->
 
-    <context:component-scan base-package="com.ninelephas.alopex.controller" />
+    <context:component-scan base-package="com.ninelephas.alopex.controller, com.ninelephas.alopex.dispatcher" />
 
     <!-- <mvc:default-servlet-handler/> -->
     <!-- 定义跳转的文件的前后缀 ，视图模式配置 -->

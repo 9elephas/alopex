@@ -113,7 +113,7 @@ public class ConfigController {
         root.put("data", "");
         String m_rtn;
         try {
-            m_rtn = JsonUtilsHelper.ObjectToJsonString(root);
+            m_rtn = JsonUtilsHelper.objectToJsonString(root);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             log.error(e);
@@ -176,7 +176,7 @@ public class ConfigController {
         String m_rtn = null;
         //使用 fastjson 进行 json 化
         try {
-            m_rtn = JsonUtilsHelper.ObjectToJsonString(root);
+            m_rtn = JsonUtilsHelper.objectToJsonString(root);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             log.error(e);

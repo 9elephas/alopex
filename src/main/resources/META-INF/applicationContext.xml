@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:task="http://www.springframework.org/schema/task"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd     
           http://www.springframework.org/schema/context     
@@ -89,6 +89,7 @@
             <list>
                 <value>com.ninelephas.alopex.service.*</value>
                 <value>com.ninelephas.alopex.controller.*</value>
+                <value>com.ninelephas.alopex.dispatcher.*</value>
             </list>
         </property>
     </bean>
