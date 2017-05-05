@@ -31,7 +31,7 @@ public class ClientServiceTest {
         String caUrl = configuration.getString("Fabric.CA.URL");
         String secret = configuration.getString("Fabric.Admin.Secret");
 
-        clientService = new ClientServiceImpl(caUrl);
+        clientService = new ClientServiceImpl();
         //创建用户
         String mspID = "Org1MSP";
         UserEntity admin = new UserEntity("admin", mspID);
@@ -59,7 +59,7 @@ public class ClientServiceTest {
         String eventhublist = configuration.getString("Fabric.EventHub.List");
         String[] eventhubUrls = eventhublist.split(",");
 
-        clientService = new ClientServiceImpl(caUrl);
+        clientService = new ClientServiceImpl();
         String mspID = "Org1MSP";
         UserEntity admin = new UserEntity("admin", mspID);
         admin.setSecret(secret);
@@ -107,7 +107,7 @@ public class ClientServiceTest {
         String[] eventhubUrls = eventhublist.split(",");
 
 
-        clientService = new ClientServiceImpl(caUrl);
+        clientService = new ClientServiceImpl();
         //创建用户
         String mspID = "Org1MSP";
         UserEntity admin = new UserEntity("admin", mspID);
@@ -169,7 +169,7 @@ public class ClientServiceTest {
         String[] eventhubUrls = eventhublist.split(",");
 
 
-        clientService = new ClientServiceImpl(caUrl);
+        clientService = new ClientServiceImpl();
         //创建用户
         String mspID = "Org1MSP";
         UserEntity admin = new UserEntity("admin", mspID);
@@ -240,7 +240,7 @@ public class ClientServiceTest {
         String[] eventhubUrls = eventhublist.split(",");
 
 
-        clientService = new ClientServiceImpl(caUrl);
+        clientService = new ClientServiceImpl();
         //创建用户
         String mspID = "Org1MSP";
         UserEntity admin = new UserEntity("admin", mspID);
