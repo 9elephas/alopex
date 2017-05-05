@@ -27,6 +27,9 @@ import org.springframework.stereotype.Service;
 @Service("com.ninelephas.alopex.service.fabric.UserService")
 public class UserService {
 
+
+    private static final String FABRIC_ADMIN_SECRET = "Fabric.Admin.Secret";
+    private static final String FABRIC_ADMIN_ADMIN_NAME = "Fabric.Admin.AdminName";
     /**
      * 通过spring配置构造函数方式实现IOC
      */
@@ -36,13 +39,11 @@ public class UserService {
 
     public void register(FabricUser fabricUser) throws Exception {
         Configuration configuration = ConfigHelper.getConfig();
-        String secret = configuration.getString("Fabric.Admin.Secret");
-
-        //clientService = new ClientServiceImpl(caUrl);
-
+        String secret = configuration.getString(FABRIC_ADMIN_SECRET);
+        String adminName = configuration.getString(FABRIC_ADMIN_ADMIN_NAME);
         //创建用户
         String mspID = fabricUser.getMspID();
-        UserEntity admin = new UserEntity("admin", mspID);
+        UserEntity admin = new UserEntity(adminName, mspID);
         admin.setSecret(secret);
         UserEntity user = new UserEntity(fabricUser.getUserName(), mspID);
         user.setAffiliation(fabricUser.getAffiliation());
