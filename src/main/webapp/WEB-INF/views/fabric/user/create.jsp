@@ -16,7 +16,7 @@
     <div class="user-create">
         <div class="avatar"></div>
         <div class="form-box">
-            <input  id="userInfoJsonStringInput"  type="text" value="{&quot;method&quot;:&quot;fabric-user-register&quot;,&quot;params&quot:{&quot;name&quot;:&quot;roamer-张三疯&quot;,&quot;passwd&quot;:&quot;password&quot;}}">
+            <input  id="userInfoJsonStringInput"  type="text" value="{&quot;method&quot;:&quot;fabric-user-register&quot;,&quot;params&quot:{&quot;userName&quot;:&quot;roamer&quot;,&quot;mspID&quot;:&quot;org1msp&quot;,&quot;affiliation&quot;:&quot;org1.department1&quot;}}">
             <button id="registerButton" class="btn btn-info btn-block login" type="submit"> 注册</button>
         </div>
         <div class="result-box">

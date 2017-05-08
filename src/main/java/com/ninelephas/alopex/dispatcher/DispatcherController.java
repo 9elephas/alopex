@@ -13,7 +13,6 @@ import com.ninelephas.alopex.service.ServiceException;
 import com.ninelephas.common.helper.HttpServletResponseHelper;
 import com.ninelephas.common.helper.JsonUtilsHelper;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +38,7 @@ public class DispatcherController {
     public @ResponseBody
     String invoke(@RequestBody String invokeContent) throws ControllerException {
         log.debug(String.format("调度者处理 ---- 开始,传入的内容是:%s", invokeContent));
-        log.debug(String.format("传入的参数是: %s", StringEscapeUtils.unescapeJson(invokeContent)));
+        log.debug(String.format("传入的参数是: %s", invokeContent));
         DispatchCommand dispatchCommand;
         try {
             dispatchCommand = JsonUtilsHelper.parseStringToObject(invokeContent, DispatchCommand.class);
