@@ -32,9 +32,11 @@ public class DispatcherService {
      *
      * @param dispatchCommand
      *
+     * @return
+     *
      * @throws ServiceException
      */
-    public void invoke(DispatchCommand dispatchCommand) throws ServiceException {
+    public Object invoke(DispatchCommand dispatchCommand) throws ServiceException {
         log.debug("开始分析调度员的请求方法");
         String command = dispatchCommand.getMethod();
         String params = dispatchCommand.getParams();
@@ -53,7 +55,7 @@ public class DispatcherService {
             Method classMethod = c.getDeclaredMethod(method, params.getClass());
             try {
                 classMethod.setAccessible(true);
-                classMethod.invoke(instanceObj, params);
+                return classMethod.invoke(instanceObj, params);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
                 throw new ServiceException(e.getMessage());

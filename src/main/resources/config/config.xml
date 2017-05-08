@@ -29,7 +29,7 @@
         <!--fabric 用户注册-->
         <fabric-user-register>
             <beanName>com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl</beanName>
-            <method>test</method>
+            <method>test2</method>
         </fabric-user-register>
     </MethodDict>
 

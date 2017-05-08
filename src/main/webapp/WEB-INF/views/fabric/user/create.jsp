@@ -14,11 +14,13 @@
 
 <div class="container">
     <div class="user-create">
-        <div id="output"></div>
         <div class="avatar"></div>
         <div class="form-box">
-            <input  id="userInfoJsonStringInput"  type="text" value="{&quot;method&quot;:&quot;fabric-user-register&quot;,&quot;params&quot:{&quot;userName&quot;:&quot;roamer&quot;,&quot;userPasswd&quot;:&quot;password&quot;}}">
+            <input  id="userInfoJsonStringInput"  type="text" value="{&quot;method&quot;:&quot;fabric-user-register&quot;,&quot;params&quot:{&quot;name&quot;:&quot;roamer-张三疯&quot;,&quot;passwd&quot;:&quot;password&quot;}}">
             <button id="registerButton" class="btn btn-info btn-block login" type="submit"> 注册</button>
+        </div>
+        <div class="result-box">
+            <textarea name="result" id="result" cols=100% rows="10"></textarea>
         </div>
     </div>
 

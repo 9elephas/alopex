@@ -51,6 +51,10 @@ dependencies {
 
             "javax.servlet:jsp-api:2.0",
 
+            //  org.apache.commons
+            "org.apache.commons:commons-lang3:3.5",
+            //  ------------------------------
+
             //  lombok
             "org.projectlombok:lombok:1.16.16",
             //  ------------------------------

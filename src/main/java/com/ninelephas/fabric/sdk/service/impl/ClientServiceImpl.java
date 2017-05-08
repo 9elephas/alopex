@@ -1,9 +1,12 @@
 package com.ninelephas.fabric.sdk.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ninelephas.common.configer.ConfigHelper;
+import com.ninelephas.common.helper.JsonUtilsHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
 import com.ninelephas.fabric.sdk.service.ClientService;
 import com.ninelephas.fabric.sdk.util.ClientUtil;
+import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
@@ -373,11 +376,30 @@ public class ClientServiceImpl implements ClientService {
 
     }
 
-    public void test() {
+    public TempPojo test() {
+
+        TempPojo testPojo = new TempPojo();
+        testPojo.setAge(12);
+        testPojo.setName("roamer");
         log.debug(String.format("test:[%s] 方法被调用了!!!", " "));
+        return testPojo;
     }
 
-    public void test2(String name) {
-        log.debug(String.format("test2:[%s] 方法被调用了!!!", name));
+    public TempPojo test2(String contentJsonString) {
+        TempPojo testPojo = new TempPojo();
+        try {
+            testPojo = JsonUtilsHelper.parseStringToObject(contentJsonString, testPojo.getClass());
+        } catch (JsonProcessingException e) {
+            log.error(e.getMessage(), e);
+        }
+        log.debug(String.format("test2:(%s)方法被调用了!!!", testPojo.getName()));
+        return testPojo;
     }
 }
+
+@Data
+class TempPojo {
+    private String name;
+    private Integer age;
+    private String passwd;
+};
