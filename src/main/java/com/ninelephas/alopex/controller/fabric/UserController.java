@@ -58,11 +58,11 @@ public class UserController {
     String register(@RequestParam(value = "userName", required = true) String userName, @RequestParam(value = "userPasswd", required = true) String userPasswd) throws Exception {
         FabricUser fabricUser = new FabricUser();
         fabricUser.setUserName(userName);
-        fabricUser.setPassword(userPasswd);
+        //fabricUser.setPassword(userPasswd);
         log.debug(String.format("注册用户:[%s]", userName));
         log.debug(String.format("密码:[%s]", userPasswd));
         //调用用户服务类的注册方法
-        userService.register(fabricUser);
+        //userService.register(fabricUser);
         return "{success}";
     }
 

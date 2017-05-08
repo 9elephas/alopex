@@ -20,7 +20,6 @@ import lombok.Data;
 public class FabricUser {
     private String mspID;
     private String userName ;
-    private String password ;
     private String affiliation;
 
 }

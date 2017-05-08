@@ -9,10 +9,12 @@ package com.ninelephas.alopex.service.fabric;
 
 import com.ninelephas.alopex.controller.pojo.FabricUser;
 import com.ninelephas.common.configer.ConfigHelper;
+import com.ninelephas.common.helper.JsonUtilsHelper;
 import com.ninelephas.fabric.sdk.entity.UserEntity;
 import com.ninelephas.fabric.sdk.service.ClientService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.configuration2.Configuration;
+import org.apache.logging.log4j.core.util.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +39,22 @@ public class UserService {
     private ClientService clientService;
 
 
-    public void register(FabricUser fabricUser) throws Exception {
+    /**
+     *
+     * @param params
+     * {"mspID":"mspID","userName":"userName","affiliation":"affiliation"}
+     *
+     *
+     * @return
+     * @throws Exception
+     */
+    public String register(String params) throws Exception {
         Configuration configuration = ConfigHelper.getConfig();
         String secret = configuration.getString(FABRIC_ADMIN_SECRET);
         String adminName = configuration.getString(FABRIC_ADMIN_ADMIN_NAME);
+
+        FabricUser fabricUser = JsonUtilsHelper.parseStringToObject(params,FabricUser.class);
+
         //创建用户
         String mspID = fabricUser.getMspID();
         UserEntity admin = new UserEntity(adminName, mspID);
@@ -50,7 +64,8 @@ public class UserService {
         user.setAdmin(admin);
         if(clientService.regist(user)){
             //返回注册后的用户
+            return JsonUtilsHelper.objectToJsonString(user);
         }
-
+        return null;
     }
 }
