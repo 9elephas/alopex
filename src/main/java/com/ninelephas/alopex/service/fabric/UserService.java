@@ -15,8 +15,11 @@ import com.ninelephas.fabric.sdk.service.ClientService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.logging.log4j.core.util.JsonUtils;
+import org.hyperledger.fabric.sdk.Enrollment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.security.PrivateKey;
 
 /**
  * 阿斯蒂芬
@@ -48,7 +51,7 @@ public class UserService {
      * @return
      * @throws Exception
      */
-    public String register(String params) throws Exception {
+    public FabricUser register(String params) throws Exception {
         Configuration configuration = ConfigHelper.getConfig();
         String secret = configuration.getString(FABRIC_ADMIN_SECRET);
         String adminName = configuration.getString(FABRIC_ADMIN_ADMIN_NAME);
@@ -63,8 +66,16 @@ public class UserService {
         user.setAffiliation(fabricUser.getAffiliation());
         user.setAdmin(admin);
         if(clientService.regist(user)){
+            fabricUser.setSecret(user.getSecret());
+            fabricUser.setCert(user.getEnrollment().getCert());
+            fabricUser.setPublicKey(user.getEnrollment().getPublicKey());
+            fabricUser.setAffiliation(user.getEnrollment().getKey().getAlgorithm());
+            fabricUser.setEncoded(user.getEnrollment().getKey().getEncoded());
+            fabricUser.setFormat(user.getEnrollment().getKey().getFormat());
+
+            //fabricUser.setEnrollment(user.getEnrollment());
             //返回注册后的用户
-            return JsonUtilsHelper.objectToJsonString(user);
+            return fabricUser;
         }
         return null;
     }

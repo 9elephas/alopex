@@ -8,6 +8,7 @@
 package com.ninelephas.alopex.controller.pojo;
 
 import lombok.Data;
+import org.hyperledger.fabric.sdk.Enrollment;
 
 /**
  * 阿斯蒂芬
@@ -21,5 +22,10 @@ public class FabricUser {
     private String mspID;
     private String userName ;
     private String affiliation;
-
+    private String secret;
+    private String cert;
+    private String publicKey;
+    private String format;
+    private String algorithm;
+    private byte[] encoded;
 }

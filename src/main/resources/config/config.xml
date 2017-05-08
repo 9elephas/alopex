@@ -28,8 +28,10 @@
     <MethodDict>
         <!--fabric 用户注册-->
         <fabric-user-register>
-            <beanName>com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl</beanName>
-            <method>test2</method>
+            <!--<beanName>com.ninelephas.fabric.sdk.service.impl.ClientServiceImpl</beanName>-->
+            <!--<method>test2</method>-->
+            <beanName>com.ninelephas.alopex.service.fabric.UserService</beanName>
+            <method>register</method>
         </fabric-user-register>
     </MethodDict>
 
