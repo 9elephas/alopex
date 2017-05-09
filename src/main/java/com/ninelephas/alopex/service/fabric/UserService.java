@@ -51,7 +51,7 @@ public class UserService {
      * @return
      * @throws Exception
      */
-    public UserEntity register(String params) throws Exception {
+    public FabricUser register(String params) throws Exception {
         Configuration configuration = ConfigHelper.getConfig();
         String secret = configuration.getString(FABRIC_ADMIN_SECRET);
         String adminName = configuration.getString(FABRIC_ADMIN_ADMIN_NAME);
@@ -66,9 +66,16 @@ public class UserService {
         user.setAffiliation(fabricUser.getAffiliation());
         user.setAdmin(admin);
         if(clientService.regist(user)){
+            fabricUser.setFormat(user.getEnrollment().getKey().getFormat());
+            fabricUser.setEncoded(user.getEnrollment().getKey().getEncoded());
+            fabricUser.setPublicKey(user.getEnrollment().getPublicKey());
+            fabricUser.setCert(user.getEnrollment().getCert());
+            fabricUser.setAlgorithm(user.getEnrollment().getKey().getAlgorithm());
+            fabricUser.setRoles(user.getRoles());
+
 
             //返回注册后的用户
-            return user;
+            return fabricUser;
         }
         return null;
     }

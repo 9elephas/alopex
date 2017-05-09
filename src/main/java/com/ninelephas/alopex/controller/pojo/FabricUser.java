@@ -10,6 +10,8 @@ package com.ninelephas.alopex.controller.pojo;
 import lombok.Data;
 import org.hyperledger.fabric.sdk.Enrollment;
 
+import java.util.ArrayList;
+
 /**
  * 阿斯蒂芬
  * Fabric 的用户类
@@ -22,5 +24,10 @@ public class FabricUser {
     private String mspID;
     private String userName ;
     private String affiliation;
-
+    private String publicKey;
+    private String cert;
+    private String format;
+    private String algorithm;
+    private byte[] encoded;
+    private ArrayList<String> roles;
 }
