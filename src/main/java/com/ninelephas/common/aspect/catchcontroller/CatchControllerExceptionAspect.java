@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 @Log4j2
 @Aspect
-@Order(3)
+@Order(2)
 @Component("com.ninelephas.common.aspect.catchcontroller.CatchControllerExceptionAspect")
 public class CatchControllerExceptionAspect {
 
@@ -80,6 +80,7 @@ public class CatchControllerExceptionAspect {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, HttpResponseHelper.inbox(ex));
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                response.setContentType("text/json;charset=UTF-8");
                 response.getWriter().write(HttpResponseHelper.inbox(ex));
                 log.debug("返回json化的错误信息:{}", HttpResponseHelper.inbox(ex));
             }
