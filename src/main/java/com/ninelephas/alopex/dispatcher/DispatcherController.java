@@ -10,7 +10,7 @@ package com.ninelephas.alopex.dispatcher;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ninelephas.alopex.controller.ControllerException;
 import com.ninelephas.alopex.service.ServiceException;
-import com.ninelephas.common.helper.HttpServletResponseHelper;
+import com.ninelephas.common.helper.HttpResponseHelper;
 import com.ninelephas.common.helper.JsonUtilsHelper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class DispatcherController {
             Object objcect = dispatcherService.invoke(dispatchCommand);
             String returnString = JsonUtilsHelper.objectToJsonString(objcect);
             log.debug(String.format("调度者处理 ---- 完成,准备返回的内容是:%s", returnString));
-            return HttpServletResponseHelper.Success(returnString);
+            return HttpResponseHelper.successInfoInbox(returnString);
         } catch (JsonProcessingException e) {
             log.error(e.getMessage(), e);
             throw new ControllerException(e.getMessage());

@@ -13,12 +13,23 @@ $().ready(
                 url: contextPath + "/rest/dispatcher/invoke.json",
                 contentType: 'application/json',
                 data: $("#userInfoJsonStringInput").val(),
-                // data: test,
-                complete: function (jqXHR, textStatus) {
-                    console.debug("调用完成!");
-                    console.debug(jqXHR.responseJSON);
+                success: function (data, textStatus, jqXHR) {
+                    $("#result").val(jqXHR.responseJSON.result);
+                    Messenger().post({
+                        message: '注册成功',
+                        type: 'success',
+                        showCloseButton: true
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.debug(jqXHR);
                     console.debug(textStatus);
-                    $("#result").val(jqXHR.responseJSON.response);
+                    console.debug(errorThrown);
+                    Messenger().post({
+                        message: errorThrown,
+                        type: 'error',
+                        showCloseButton: true
+                    });
                 }
             })
         });

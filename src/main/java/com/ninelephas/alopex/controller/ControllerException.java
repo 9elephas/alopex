@@ -14,7 +14,7 @@ package com.ninelephas.alopex.controller;
 
 import org.springframework.validation.BindingResult;
 
-import com.ninelephas.alopex.ProjectException;
+import com.ninelephas.common.ProjectException;
 
 /**
  * @ClassName: ControllerException

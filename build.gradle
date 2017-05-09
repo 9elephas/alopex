@@ -23,6 +23,7 @@ ext {
     springDataRedisVersion = "1.8.3.RELEASE"
     jredisVersion = "2.9.0"
     fastJsonVersion = "1.2.31"
+    apacheOroVersion = "2.0.8"
 }
 
 
@@ -116,6 +117,11 @@ dependencies {
             "commons-beanutils:commons-beanutils:1.9.3",
             "org.apache.commons:commons-configuration2:2.1.1",
             //  ------------------------------
+
+            // org.apache.oro
+            "oro:oro:$apacheOroVersion",
+            //  ------------------------------
+
 
     )
 

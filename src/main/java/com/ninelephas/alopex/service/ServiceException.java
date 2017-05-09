@@ -12,7 +12,7 @@
 
 package com.ninelephas.alopex.service;
 
-import com.ninelephas.alopex.ProjectException;
+import com.ninelephas.common.ProjectException;
 import org.springframework.validation.BindingResult;
 
 /**

@@ -42,7 +42,7 @@ public class StartedListener implements ApplicationListener<ContextRefreshedEven
                                                               // 没有parent，他就是老大.
         {
             //  读取配置文件
-            log.info(String.format("项目名称是:[%s]", ConfigHelper.getConfig().getString("System.AppName")));
+            log.info(String.format("项目:[%s],开始启动。。。", ConfigHelper.getConfig().getString("System.AppName")));
 
             //
             log.debug("onApplicationEvent(ContextRefreshedEvent) - start"); //$NON-NLS-1$
@@ -52,7 +52,7 @@ public class StartedListener implements ApplicationListener<ContextRefreshedEven
             log.info("系统环境信息如下：");
             while (it.hasNext()) {
                 Entry<Object, Object> entry = it.next();
-                log.info(entry.getKey() + "=" + entry.getValue());
+                log.debug(entry.getKey() + "=" + entry.getValue());
             }
             log.info("Spring 容器启动完成，开始启动重启后必须执行的任务！");
             log.info("Spring 启动重启后必须执行的任务执行完成！");
@@ -61,9 +61,10 @@ public class StartedListener implements ApplicationListener<ContextRefreshedEven
             String[] beans = context.getBeanDefinitionNames();
             log.info("所有被装备的Bean列表如下:");
             for (String beanName : beans) {
-                log.info(beanName);
+                log.debug(beanName);
             }
-            log.info("所有被装备的Bean列表显示完成");
+            log. debug("所有被装备的Bean列表显示完成");
+            log.info(String.format("项目:[%s],启动完成", ConfigHelper.getConfig().getString("System.AppName")));
         }
     }
 }

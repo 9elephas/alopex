@@ -10,7 +10,7 @@
  * @version V1.0.0
  */
 
-package com.ninelephas.alopex;
+package com.ninelephas.common;
 
 import org.springframework.validation.BindingResult;
 
