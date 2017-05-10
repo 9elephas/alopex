@@ -35,9 +35,7 @@ public class UserService {
 
     private static final String FABRIC_ADMIN_SECRET = "Fabric.Admin.Secret";
     private static final String FABRIC_ADMIN_ADMIN_NAME = "Fabric.Admin.AdminName";
-    /**
-     * 通过spring配置构造函数方式实现IOC
-     */
+
     @Autowired
     private ClientService clientService;
 
