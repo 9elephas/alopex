@@ -55,13 +55,15 @@ public class DispatcherService {
             Method classMethod = c.getDeclaredMethod(method, params.getClass());
             try {
                 classMethod.setAccessible(true);
-                return classMethod.invoke(instanceObj, params);
+                Object returnObj =  classMethod.invoke(instanceObj, params);
+                log.debug("动态调用 bean 中的方法后，返回的对象类型是:%s", returnObj.getClass().getName());
+                return returnObj;
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
                 throw new ServiceException(e.getMessage());
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(e.getTargetException().getLocalizedMessage());
             }
         } catch (NoSuchMethodException e) {
             throw new ServiceException(e.getMessage());

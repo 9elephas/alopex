@@ -24,6 +24,7 @@ import java.io.IOException;
  * @date 2016年11月1日 下午10:05:29
  *
  */
+@SuppressWarnings("ALL")
 @Log4j2
 @Aspect
 @Order(2)
@@ -32,29 +33,32 @@ public class CatchControllerExceptionAspect {
 
     @Autowired
     private HttpServletRequest request;
+
     @Autowired
     private HttpServletResponse response;
 
     /**
-     * catchController
-     * 
+     * catch appliction Controller
+     *
      * @Auther 徐泽宇
-     * @Date 2016年11月1日 下午10:08:50
+     * @Date 2017年05月10日 下午10:08:50
      * @Title: catchControllerMethod
-     * @Description: 切入所有controller中方法的切面
+     * @Description: 切入所有需要切入的controller中方法的切面
      */
-    @Pointcut("execution(* com.ninelephas.alopex.controller..*.*(..)) ")
+    @Pointcut("execution(* com.ninelephas.alopex.controller..*.*(..) ) || execution(* com.ninelephas.alopex.dispatcher..*.*(..) ) ")
     public void catchControllerMethod() {
         // Nothing to clean up
     }
 
+
+
     /**
      * writeToHttpResponse
-     * 
+     *
      * @throws IOException
-     * 
+     *
      * @throws ServletException
-     * 
+     *
      * @Auther 徐泽宇
      * @Date 2016年11月1日 下午10:11:24
      * @Title: writeToHttpResponse

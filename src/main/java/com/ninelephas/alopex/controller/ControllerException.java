@@ -27,11 +27,6 @@ import com.ninelephas.common.ProjectException;
 public class ControllerException extends ProjectException {
 
     /**
-     * @Fields serialVersionUID : 序列号随机数
-     */
-
-    private static final long serialVersionUID = 694905108298102070L;
-    /**
      * 
      * 创建一个新的实例 ControllerException.
      * 

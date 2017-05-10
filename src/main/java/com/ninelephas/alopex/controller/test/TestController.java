@@ -35,7 +35,7 @@ public class TestController {
     @RequestMapping(value = "/500_error")
     @ResponseBody
     public String test500ErrorController() throws ControllerException {
-        throw new NullPointerException("抛出一个测试的ControllerException错误");
+        throw new ControllerException("抛出一个测试的ControllerException错误");
     }
 
     /**

@@ -24,6 +24,7 @@ ext {
     jredisVersion = "2.9.0"
     fastJsonVersion = "1.2.31"
     apacheOroVersion = "2.0.8"
+    javaxServletAPIVersion = "4.0.0-b05"
 }
 
 
@@ -51,6 +52,10 @@ dependencies {
     compile(
 
             "javax.servlet:jsp-api:2.0",
+
+            //  javax servlet api
+            "javax.servlet:javax.servlet-api:$javaxServletAPIVersion",
+            //  ------------------------------
 
             //  org.apache.commons
             "org.apache.commons:commons-lang3:3.5",
@@ -99,7 +104,6 @@ dependencies {
             "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
             "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion",
             // fastjson 用于把javabean转换成json
-
 
             // fastjson 用于把javabean转换成json
             "com.alibaba:fastjson:$fastJsonVersion",

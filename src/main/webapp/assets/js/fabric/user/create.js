@@ -22,11 +22,8 @@ $().ready(
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    console.debug(jqXHR);
-                    console.debug(textStatus);
-                    console.debug(errorThrown);
                     Messenger().post({
-                        message: errorThrown,
+                        message: jqXHR.responseText,
                         type: 'error',
                         showCloseButton: true
                     });
