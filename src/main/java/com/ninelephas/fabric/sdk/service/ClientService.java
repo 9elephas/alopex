@@ -52,6 +52,12 @@ public interface ClientService {
     public EventHub newEventHub(String eventHubName, String eventHubLocation, Properties properties) throws Exception;
 
     /**
+     * 获取chain
+     * @param chainName
+     * @return
+     */
+    public Chain getChain(String chainName);
+    /**
      * 创建一个chain
      * @param admin
      * @param chainName

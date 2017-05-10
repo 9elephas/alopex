@@ -21,6 +21,7 @@
     <!--Fabric 环境部分-->
     <Fabric>
         <Admin>
+            <MspID>Org1Msp</MspID>
             <AdminName>admin</AdminName>
             <Secret>adminpw</Secret>
         </Admin>
@@ -36,6 +37,9 @@
         <EventHub>
             <List>grpc://192.168.2.13:7053</List>
         </EventHub>
+        <ChainConfiguration>
+            <FilePath></FilePath>
+        </ChainConfiguration>
     </Fabric>
 
     <!--调度员中的方法和类方法映射部分-->

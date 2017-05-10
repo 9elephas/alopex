@@ -287,6 +287,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
+    public Chain getChain(String chainName){
+        return client.getChain(chainName);
+    }
+
     private Chain newChainNotInitialize(UserEntity admin, String chainName, ChainConfiguration chainConfiguration, Collection<Orderer> orders, Collection<Peer> peers, Collection<EventHub> eventHubs) throws Exception {
         if (admin.getEnrollment() == null) {
             regist(admin);
