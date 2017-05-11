@@ -385,7 +385,7 @@ public class ClientServiceImpl implements ClientService {
         TempPojo testPojo = new TempPojo();
         testPojo.setAge(12);
         testPojo.setName("roamer");
-        log.debug(String.format("test:[%s] 方法被调用了!!!", " "));
+        log.debug("test:无参数方法被调用了!!!");
         return testPojo;
     }
 

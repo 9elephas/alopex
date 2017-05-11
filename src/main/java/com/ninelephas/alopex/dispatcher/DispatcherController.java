@@ -13,6 +13,7 @@ import com.ninelephas.alopex.service.ServiceException;
 import com.ninelephas.common.helper.HttpResponseHelper;
 import com.ninelephas.common.helper.JsonUtilsHelper;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,7 +44,11 @@ public class DispatcherController {
         try {
             dispatchCommand = JsonUtilsHelper.parseStringToObject(invokeContent, DispatchCommand.class);
             log.debug(String.format("要处理的方法是[%s]", dispatchCommand.getMethod()));
-            log.debug(String.format("参数是[%s]", dispatchCommand.getParams()));
+            if (StringUtils.isEmpty(dispatchCommand.getParams())){
+                log.debug("无参数调用");
+            }else{
+                log.debug(String.format("参数是[%s]", dispatchCommand.getParams()));
+            }
             //调用解析类，进行这个方法的执行
             Object objcect = dispatcherService.invoke(dispatchCommand);
             String returnString = JsonUtilsHelper.objectToJsonString(objcect);

@@ -9,6 +9,7 @@ package com.ninelephas.alopex.dispatcher;
 
 import com.ninelephas.alopex.service.ServiceException;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
@@ -52,10 +53,25 @@ public class DispatcherService {
         }
         Class c = instanceObj.getClass();
         try {
-            Method classMethod = c.getDeclaredMethod(method, params.getClass());
+            Method classMethod;
+            if (StringUtils.isEmpty(params)) {
+                //无参数调用
+                log.debug("{}方法是无参数的方法", method);
+                classMethod = c.getMethod(method);
+            } else {
+                //有 jsonString参数调用
+                log.debug("{}方法是有参数的，参数类型是:{}", method, params.getClass().getName());
+                classMethod = c.getDeclaredMethod(method, params.getClass());
+            }
+
             try {
                 classMethod.setAccessible(true);
-                Object returnObj =  classMethod.invoke(instanceObj, params);
+                Object returnObj ;
+                if (StringUtils.isEmpty(params)){
+                    returnObj = classMethod.invoke(instanceObj);
+                }else{
+                    returnObj = classMethod.invoke(instanceObj, params);
+                }
                 log.debug("动态调用 bean 中的方法后，返回的对象类型是:%s", returnObj.getClass().getName());
                 return returnObj;
             } catch (IllegalAccessException e) {
