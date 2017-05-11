@@ -38,7 +38,7 @@
             <List>grpc://192.168.2.13:7053</List>
         </EventHub>
         <ChainConfiguration>
-            <FilePath></FilePath>
+            <FilePath>/Users/zouwei/projects/alopex/src/test/resources/foo.tx</FilePath>
         </ChainConfiguration>
     </Fabric>
 
@@ -51,6 +51,11 @@
             <beanName>com.ninelephas.alopex.service.fabric.UserService</beanName>
             <method>register</method>
         </fabric-user-register>
+        <fabric-default-chain>
+            <beanName>com.ninelephas.alopex.service.fabric.ChainService</beanName>
+            <method>defaultChain</method>
+        </fabric-default-chain>
+
     </MethodDict>
 
 
