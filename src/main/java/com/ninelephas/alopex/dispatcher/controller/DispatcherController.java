@@ -5,10 +5,12 @@
  *
  */
 
-package com.ninelephas.alopex.dispatcher;
+package com.ninelephas.alopex.dispatcher.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ninelephas.alopex.controller.ControllerException;
+import com.ninelephas.alopex.dispatcher.DispatchCommand;
+import com.ninelephas.alopex.dispatcher.service.DispatcherService;
 import com.ninelephas.alopex.service.ServiceException;
 import com.ninelephas.common.helper.HttpResponseHelper;
 import com.ninelephas.common.helper.JsonUtilsHelper;
@@ -28,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @create 2017-05-2017/5/5  上午11:45
  */
 @Log4j2
-@Controller("com.ninelephas.alopex.dispatcher.DispatcherController")
+@Controller("com.ninelephas.alopex.dispatcher.controller.DispatcherController")
 @RequestMapping(value = "/rest/dispatcher")
 public class DispatcherController {
 

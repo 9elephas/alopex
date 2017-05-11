@@ -21,6 +21,7 @@
     <!--Fabric 环境部分-->
     <Fabric>
         <Admin>
+            <MspID>Org1Msp</MspID>
             <AdminName>admin</AdminName>
             <Secret>adminpw</Secret>
         </Admin>
@@ -36,6 +37,9 @@
         <EventHub>
             <List>grpc://192.168.2.13:7053</List>
         </EventHub>
+        <ChainConfiguration>
+            <FilePath>/Users/zouwei/projects/alopex/src/test/resources/foo.tx</FilePath>
+        </ChainConfiguration>
     </Fabric>
 
     <!--调度员中的方法和类方法映射部分-->
@@ -47,6 +51,11 @@
             <beanName>com.ninelephas.alopex.service.fabric.UserService</beanName>
             <method>register</method>
         </fabric-user-register>
+        <fabric-default-chain>
+            <beanName>com.ninelephas.alopex.service.fabric.ChainService</beanName>
+            <method>defaultChain</method>
+        </fabric-default-chain>
+
     </MethodDict>
 
 

@@ -45,7 +45,7 @@ public class CatchControllerExceptionAspect {
      * @Title: catchControllerMethod
      * @Description: 切入所有需要切入的controller中方法的切面
      */
-    @Pointcut("execution(* com.ninelephas.alopex.controller..*.*(..) ) || execution(* com.ninelephas.alopex.dispatcher..*.*(..) ) ")
+    @Pointcut("execution(* com.ninelephas.alopex.controller..*.*(..) ) || execution(* com.ninelephas.alopex.dispatcher.controller..*.*(..) ) ")
     public void catchControllerMethod() {
         // Nothing to clean up
     }
@@ -80,13 +80,16 @@ public class CatchControllerExceptionAspect {
         }
         response.setCharacterEncoding("UTF-8");
         try {
+            String resposeWriteString = HttpResponseHelper.inbox(ex) ;
             if (!StringUtils.equalsIgnoreCase(uriPostfix, "json")) {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, HttpResponseHelper.inbox(ex));
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, resposeWriteString);
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 response.setContentType("text/json;charset=UTF-8");
-                response.getWriter().write(HttpResponseHelper.inbox(ex));
-                log.debug("返回json化的错误信息:{}", HttpResponseHelper.inbox(ex));
+
+                log.debug("返回json化的错误信息:{}",resposeWriteString );
+                response.getWriter().write(resposeWriteString);
+
             }
         } catch (IOException e) {
             log.error(e, e.fillInStackTrace());

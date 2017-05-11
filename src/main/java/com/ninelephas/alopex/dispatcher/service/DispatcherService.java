@@ -5,8 +5,10 @@
  *
  */
 
-package com.ninelephas.alopex.dispatcher;
+package com.ninelephas.alopex.dispatcher.service;
 
+import com.ninelephas.alopex.dispatcher.CommandDict;
+import com.ninelephas.alopex.dispatcher.DispatchCommand;
 import com.ninelephas.alopex.service.ServiceException;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +26,7 @@ import java.lang.reflect.Method;
  * @create 2017-05-2017/5/5  下午1:32
  */
 @Log4j2
-@Service("com.ninelephas.alopex.dispatcher.DispatcherService")
+@Service("com.ninelephas.alopex.dispatcher.service.DispatcherService")
 public class DispatcherService {
 
 
@@ -75,10 +77,8 @@ public class DispatcherService {
                 log.debug("动态调用 bean 中的方法后，返回的对象类型是:%s", returnObj.getClass().getName());
                 return returnObj;
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
                 throw new ServiceException(e.getMessage());
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
                 throw new ServiceException(e.getTargetException().getLocalizedMessage());
             }
         } catch (NoSuchMethodException e) {
