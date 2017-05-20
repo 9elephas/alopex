@@ -11,7 +11,7 @@
 <%----%>
 
 <%-- DataTables Editor Button Select--%>
-<script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/Editor-1.6.2/js/dataTables.editor.min.js"></script>
+<script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/Editor-1.6.2/js/dataTables.editor.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/Editor-1.6.2/js/editor.bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/Buttons-1.3.1/js/dataTables.buttons.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/lib/DataTables-1.10.15/Buttons-1.3.1/js/buttons.bootstrap.min.js"></script>
